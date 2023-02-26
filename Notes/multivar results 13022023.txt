@@ -1,0 +1,4 @@
+Results from Multivariate Testing w/ 43 candidates on 13022023
+Baseline neg MAE = -0.6139366243245868, assumes a constant, -0.53569521, for all predictions
+Model Results neg MAE = -0.35213754711051093
+

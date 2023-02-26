@@ -1,0 +1,7 @@
+{
+    "public_id": "VARCHAR(15)",
+    "zyg": "CHAR(2)",
+    "age": "DECIMAL(10,2)",
+    "flow_jo_subject_id": "SMALLINT",
+    "flow_jo": "SMALLINT"
+  }

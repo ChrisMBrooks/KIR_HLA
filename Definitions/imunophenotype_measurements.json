@@ -1,0 +1,5 @@
+{
+    "measurement_id":"VARCHAR(10)",
+    "subject_id":"INTEGER",
+    "measurement":"DECIMAL(20,10)"
+}

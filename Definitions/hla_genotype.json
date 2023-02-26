@@ -1,0 +1,15 @@
+{
+    "public_id":"VARCHAR(15)",
+    "a_1":"INTEGER",
+    "a_2":"INTEGER",
+    "b_1":"INTEGER",
+    "b_2":"INTEGER",
+    "c_1":"INTEGER",
+    "c_2":"INTEGER",
+    "drb1_1":"INTEGER",
+    "drb1_2":"INTEGER",
+    "dqa1_1":"INTEGER",
+    "dqa1_2":"INTEGER",
+    "dqb1_1":"INTEGER",
+    "dqb1_2":"INTEGER"
+}

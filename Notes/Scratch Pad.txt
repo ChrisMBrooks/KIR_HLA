@@ -1,0 +1,17 @@
+1. Reverse Regression - ElasticNet for Feature Importance 
+2. Reverse RandomForest for Feature Importance 
+3. What is the overlap? How significant are the top features? 
+4. Co-variance analysis - Are there any collinear features we missed out on? Do they seem sensible? 
+5. Perform OLS for the most important features, get Bonferroni corrected p-scores, 
+compute prediction against test data-set, do we care about prediction or do we want to look at p-scores
+to ensure they are commensurate?
+
+6. Can we leverage the fact that there's twins data? heredity? 
+Can we leverage the fact that there's multiple time points in the twins data?
+
+
+Random Forest better deals with non-linear relationships 
+
+
+Is Random Forest equipped for Sparse Data?
+RF does not fit very well on this type of problem -- bagging and suboptimal selection of splits may waste most of the model insight on zero-only areas

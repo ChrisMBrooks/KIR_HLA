@@ -1,0 +1,73 @@
+{
+    "my_sql":{
+        "host":"localhost",
+        "user":"root",
+        "pwd":"qF9CVAVnS9DwGpBU"
+    },
+    "setup":{
+        "datasources": [
+            {
+                "datasource":"output laura/TwinsUK_HLA_genotypes.csv",
+                "source_col_names":["ID_1","A.1","A.2","B.1","B.2","C.1","C.2",
+                    "DRB1.1","DRB1.2", "DQA1.1","DQA1.2","DQB1.1","DQB1.2"
+                ],
+                "src_primary_key":"ID_1",
+                "table_name":"raw_hla_genotype",
+                "schema_name":"KIR_HLA_STUDY",
+                "definition_file":"hla_genotype.json",
+                "table_col_names":["public_id", "a_1", "a_2", "b_1", "b_2", "c_1", "c_2", 
+                     "drb1_1", "drb1_2", "dqa1_1", "dqa1_2", "dqb1_1", "dqb1_2"
+                ]
+            },
+            {
+                "datasource":"output laura/TwinsUK_KIR_genotypes.csv",
+                "source_col_names":["ID", "AvsB_t50", "KIR2DL1_t50", "KIR2DL2_t50", 
+                    "KIR2DL3_t50", "KIR2DL4_t50", "KIR2DL5_t50", "KIR2DP1_t50", 
+                    "KIR2DS1_t50", "KIR2DS2_t50", "KIR2DS3_t50", "KIR2DS4DEL_t50", 
+                    "KIR2DS4TOTAL_t50", "KIR2DS4WT_t50", "KIR2DS5_t50", 
+                    "KIR3DL1ex4_t50", "KIR3DL1ex9_t50", "KIR3DP1_t50", "KIR3DS1_t50", 
+                    "KIRhaplotype_t50", "AvsB_t70", "KIR2DL1_t70", "KIR2DL2_t70", 
+                    "KIR2DL3_t70", "KIR2DL4_t70", "KIR2DL5_t70", "KIR2DP1_t70", 
+                    "KIR2DS1_t70", "KIR2DS2_t70", "KIR2DS3_t70", "KIR2DS4DEL_t70", 
+                    "KIR2DS4TOTAL_t70", "KIR2DS4WT_t70", "KIR2DS5_t70", "KIR3DL1ex4_t70", 
+                    "KIR3DL1ex9_t70", "KIR3DP1_t70", "KIR3DS1_t70", "KIRhaplotype_t70", 
+                    "AvsB_t80", "KIR2DL1_t80", "KIR2DL2_t80", "KIR2DL3_t80", "KIR2DL4_t80", 
+                    "KIR2DL5_t80", "KIR2DP1_t80", "KIR2DS1_t80", "KIR2DS2_t80", 
+                    "KIR2DS3_t80", "KIR2DS4DEL_t80", "KIR2DS4TOTAL_t80", "KIR2DS4WT_t80", 
+                    "KIR2DS5_t80", "KIR3DL1ex4_t80", "KIR3DL1ex9_t80", "KIR3DP1_t80", 
+                    "KIR3DS1_t80", "KIRhaplotype_t80"
+                ],
+                "src_primary_key":"ID",
+                "table_name":"raw_kir_genotype",
+                "schema_name":"KIR_HLA_STUDY",
+                "definition_file":"kir_genotype.json",
+                "table_col_names":["public_id","avsb_t50","kir2dl1_t50","kir2dl2_t50",
+                    "kir2dl3_t50","kir2dl4_t50","kir2dl5_t50","kir2dp1_t50","kir2ds1_t50",
+                    "kir2ds2_t50","kir2ds3_t50","kir2ds4del_t50","kir2ds4total_t50",
+                    "kir2ds4wt_t50","kir2ds5_t50","kir3dl1ex4_t50","kir3dl1ex9_t50",
+                    "kir3dp1_t50","kir3ds1_t50","kirhaplotype_t50","avsb_t70","kir2dl1_t70",
+                    "kir2dl2_t70","kir2dl3_t70","kir2dl4_t70","kir2dl5_t70","kir2dp1_t70",
+                    "kir2ds1_t70","kir2ds2_t70","kir2ds3_t70","kir2ds4del_t70",
+                    "kir2ds4total_t70","kir2ds4wt_t70","kir2ds5_t70","kir3dl1ex4_t70",
+                    "kir3dl1ex9_t70","kir3dp1_t70","kir3ds1_t70","kirhaplotype_t70",
+                    "avsb_t80","kir2dl1_t80","kir2dl2_t80","kir2dl3_t80","kir2dl4_t80",
+                    "kir2dl5_t80","kir2dp1_t80","kir2ds1_t80","kir2ds2_t80","kir2ds3_t80",
+                    "kir2ds4del_t80","kir2ds4total_t80","kir2ds4wt_t80","kir2ds5_t80"
+                    ,"kir3dl1ex4_t80","kir3dl1ex9_t80","kir3dp1_t80","kir3ds1_t80",
+                    "kirhaplotype_t80"
+                ]
+            },
+            {
+                "datasource":"E1139_14092021/PublicID_mapping_file.xlsx",
+                "source_col_names":["PublicID", "Zyg", "Age", "FlowJo_Subject_ID"
+                ],
+                "src_primary_key":"PublicID",
+                "table_name":"raw_public_mapping",
+                "schema_name":"KIR_HLA_STUDY",
+                "definition_file":"public_mapping.json",
+                "table_col_names":["public_id", "zyg", "age", "subject_id"
+                ]
+            }
+        ]
+    }
+}

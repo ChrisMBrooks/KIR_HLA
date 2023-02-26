@@ -1,0 +1,38 @@
+Laura's imputation file 'TwinsUK_HLA_genotypes.csv'  has 5655 individuals
+Laura's imputation file 'TwinsUK_KIR_genotypes.csv'  has 5655 individuals
+TwinsUK file 'PublicID_mapping_file.xlsx' has 497 indviduals
+TwinsUK file '2. Trait Values.xlsx' has 529 individuals
+
+Of the 497 patients in the mapping file, 36 IDs were not included in Laura's imputation results.  
+
+Of the remaining 461, 32 Patients have some missing values in the 13 required data fields: 'public_id', 'flow_jo_subject_id', 
+'kir2dl1_t50', 'kir2dl2_t50', 'kir2dl3_t50', 'kir3dl1ex4_t50', 'kir3dl1ex9_t50', 'a_1', 'a_2', 'b_1', 'b_2', 'c_1', 'c_2', leaving 
+429 in total. 
+
+Throughout my modelling I've used a 80/20 data stratification (343 kept for training, 86 help out for validaton)
+
+Trait Values is 7863 x 529 in xlsx (669 mentioned in the paper)
+5654 records in raw_hla_genotype
+5654 records in raw_kir_genotype
+5654 records in functional_kir_genotype
+497 records in raw_public_mapping (i.e. PublicID_mapping_file.xlsx - only have a means of mapping 461 genotypes to phenotyupes)
+
+of the 497 patients in the mapping file, 36 IDs were not included in Laura's imputation results, 461 were valid: 
+
+['TUK44743841' 'TUK22072991' 'TUK50174791' 'TUK82252901' 'TUK91132291'
+ 'TUK15256291' 'TUK71712032' 'TUK19922741' 'TUK35985661' 'TUK60035571'
+ 'TUK44373451' 'TUK22531361' 'TUK75879271' 'TUK91950182' 'TUK14867561'
+ 'TUK45770681' 'TUK43411311' 'TUK75450942' 'TUK28791821' 'TUK60640162'
+ 'TUK15500732' 'TUK84459021' 'TUK64948941' 'TUK40603561' 'TUK80787171'
+ 'TUK91700611' 'TUK35630001' 'TUK93990801' 'TUK22675101' 'TUK27304501'
+ 'TUK35321862' 'TUK62352082' 'TUK16074161' 'TUK77557411' 'TUK96569461'
+ 'TUK17155211']
+
+- of the 461, 32 Patients have some missing values in the 13 required columns 
+- 429 have ['public_id', 'flow_jo_subject_id', 'kir2dl1_t50', 'kir2dl2_t50', 'kir2dl3_t50', 'kir3dl1ex4_t50', 'kir3dl1ex9_t50', 
+    'a_1', 'a_2', 'b_1', 'b_2', 'c_1', 'c_2'], i.e. no nulls 
+    
+- 343 kept in training partition
+- 86 kept in the validaton partition
+
+Not sure how we get from 539 to 497 ... >> missing from the mapping file

@@ -1,0 +1,53 @@
+
+# Questions 
+
+""" 
+Q: What does _t50, _t70 & _t80 denote for the KIR genes, are they independent or overlapping, 
+A:They represent accuracry thresholds for the imputaiton algorith. 
+
+Q: Why is positin 80 actually position 104 (offset by 24)? - 
+A: Position 80, is the position from within that domain. 
+24 represents exon1, the signal peptide. It is assumed to be a constant length in our calcs. 
+
+Q: best practice for null values? 
+A: Be conservative and remove them. The alternative is just introducing noise. 
+
+Q: Can we do a reverse regression, then a forward regression with just the relevant X & Y to confirm? 
+A: Yes. 
+
+Q: We should expect to see similar relationships at differenet points in time...
+
+Q: Do we include the intercept? Whats the story with the high significance? 
+What do we do about the sparcely populated immunophenotypes? 
+
+Q: Do we reprocess but without the zero measurement records? 
+A: No but we may try binning/ clustering the results and re-running the regression
+
+Q: Is there a recommended reference database that defines cell type based on CDs?
+
+Q: What does the sparsity mean for the reverse regression strategy? 
+
+Actions ... 
+repeat with iKIR score, not that there are both 0.75 and 0.5 weights, need to consult paper ... 
+repeat analysis but filter out sparsely populated datasets with 
+consult Twins Paper to discern how frequency and cut-off of flow cytof were evaluated. Laura mentioned they focused ona a subset of phenotypes ... 140?
+
+Thoughts: 
+Forward or Backward Selection or Exhaustive Selection?
+"Backward selection can only be used when N > p" - Elements of statistical learning. 
+
+
+Q: Can we leverage the Sardinia Study Data - : https://ega-archive.org/datasets/EGAD00001000656, 
+We also whole-genome sequenced 1,146 Sardinians at low pass, 
+quantitative levels of 95 cell types encompassing 272 immune traits, 
+in a cohort of 1,629 individuals
+ 
+ #Question -- Can I normalise Y between 0 and 1, if the y's are not indepdendent ... 
+
+#Question - elasticnet do i need to normalize my data?
+Answer - Lasso, Ridge and Elastic Net regressions are powerful models, 
+but they require normalization because the penalty coefficients are the same for all the variables. 
+Logistic regression requires normalization as well in order to avoid the vanishing gradient problem during the training phase.
+Source: https://towardsdatascience.com/which-models-require-normalized-data-d85ca3c85388
+
+

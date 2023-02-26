@@ -1,0 +1,12 @@
+{
+    "public_id":"VARCHAR(15)",
+    "visit_date":"DATE",
+    "il10_1":"FLOAT",
+    "il10_2":"FLOAT",
+    "il1b_1":"FLOAT",
+    "il1b_2":"FLOAT",
+    "il6_1":"FLOAT",
+    "il6_2":"FLOAT",
+    "tnf_1":"FLOAT",
+    "tnf_2":"FLOAT"
+}

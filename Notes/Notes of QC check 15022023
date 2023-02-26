@@ -1,0 +1,15 @@
+Summary for the Day 15022023
+
+Spent the day cross checking Laura's code with mine. Two discrepancies were found. 
+Motif identification matched up for hla_c_c1, hla_c_c2, hla_b_bw4, but not for hla_b_46_c1 & hla_b_73_c1
+
+You identified all c1 motifs on betas not just b46 and b73. 
+
+“Residues 77e80 characterize the C1 (S, L, R, N) and C2 (N, L, R, K) motifs of HLA-C and some HLA-B allotype” - Source
+
+The key is 'some'
+
+Ask Becca what to do next. Do we scarp this part of the code and /or make it more specfic? 
+
+IDs -- 50009810, 50053010
+
