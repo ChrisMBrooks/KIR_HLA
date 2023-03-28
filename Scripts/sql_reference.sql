@@ -170,3 +170,18 @@ SELECT *
 FROM KIR_HLA_STUDY.model_result_el_net_coeffs
 INNER JOIN KIR_HLA_STUDY.immunophenotype_definitions
 ON KIR_HLA_STUDY.model_result_el_net_coeffs.phenotype_label = KIR_HLA_STUDY.immunophenotype_definitions.phenotype_id;
+
+CREATE TABLE KIR_HLA_STUDY.immunophenotype_summary_stats (
+        measurement_id VARCHAR(15) NOT NULL, 
+		minimum FLOAT NOT NULL, 
+		maximum FLOAT NOT NULL, 
+		mean FLOAT NOT NULL, 
+		std_dev FLOAT NOT NULL, 
+		q1 FLOAT NOT NULL, 
+		q3 FLOAT NOT NULL, 
+		iqr FLOAT NOT NULL, 
+		outliers_count FLOAT NOT NULL, 
+		valids_count FLOAT NOT NULL, 
+		nans_count FLOAT NOT NULL, 
+        PRIMARY KEY (measurement_id)
+	)

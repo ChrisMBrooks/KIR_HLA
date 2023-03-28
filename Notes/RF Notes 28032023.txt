@@ -1,0 +1,18 @@
+28032023
+Grid Search w/ only 1 Feature - MFI:469
+
+best fit mae: -0.19464814132338473
+n_estimators: 210
+max_depth: 5
+
+best fit mae: -0.135678647559114
+n_estimators: 110
+max_depth: 30
+run id: e78a484edb714f348217479519633cd9
+run time: 30.121880769729614
+
+Permutation Tolerance Testing
+delta mean: 0.028262654701146077
+delta std: 0.002458007929513359
+run id: cd8ded336fcf483d930f7f6683c3695c
+run time: 1309.6089673042297

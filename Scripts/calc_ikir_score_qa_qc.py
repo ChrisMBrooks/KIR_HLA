@@ -1,4 +1,7 @@
 
+# Compare and Contrast Laura's Methods w/ Chris's Methods 
+# to calculate iKIR score on a subset of the GRID dataset
+
 import time, requests, re
 import numpy as np
 import pandas as pd
@@ -82,7 +85,7 @@ def retrieve_hla_meta_data_from_ipd_db(alleles):
         time.sleep(.1)
     return records, failed_records
 
-def format_hla_genotypes(df:pd.DataFrame, columns:list):
+def format_hla_genotypes(grid_hla_genotype:pd.DataFrame, columns:list):
     A = grid_hla_genotype.copy()
     for column_id in columns:
         new_id = column_id.replace('.', '_')
@@ -309,7 +312,6 @@ def compute_functional_kir_genotype(df_kir_geno_tbl:pd.DataFrame,
     mstr_df = mstr_df.drop(['A', 'B'], axis=1)
 
     return mstr_df
-
 
 #Instantiate Controllers
 use_full_dataset=False

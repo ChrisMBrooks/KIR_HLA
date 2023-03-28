@@ -1,3 +1,5 @@
+# Calc Multivar p-vals from a subset of phenotypes using statsmodel
+
 import numpy as np
 import pandas as pd
 import scipy as sp

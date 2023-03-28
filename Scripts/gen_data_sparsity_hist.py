@@ -1,28 +1,28 @@
 
 import numpy as np
 import pandas as pd
+
+import seaborn as sns
 import matplotlib.pyplot as plt
+sns.set_theme()
 
-from Controllers.ConfigManager import ConfigManager as cm
-from Controllers.MySQLManager import MySQLManager as msm
-from Controllers.DataManager import DataManager as dtm
-from Controllers.LearningManager import LearningManager as lrn
+from Controllers.DataScienceManager import DataScienceManager as dsm
 
-#Instantiate Controllers
-config = cm.ConfigManaager().config
-sql = msm.MySQLManager(config=config)
-data_mgr = dtm.DataManager(config=config, use_full_dataset=True)
-lrn_mgr = lrn.LearningManager(config=config)
+use_full_dataset = False
+data_sci_mgr = dsm.DataScienceManager(use_full_dataset=use_full_dataset)
 
-# Pull Data from DB
-X = data_mgr.feature_values(normalise = True, fill_na = True, fill_na_value = 0.0, 
-        partition = 'training')
+summary_stats = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
+    table_name='immunophenotype_summary_stats'
+)
 
-Y = data_mgr.outcome_values(normalise = True, fill_na = True, fill_na_value = 0.0, 
-        partition = 'training')
+sns.histplot(data=summary_stats, x="nans_count", cumulative=True)
+plt.title('Cumulative Histogram of NaN Count')
+plt.xlabel('Immunophenotypes Grouped by NaN Count')
 
-Z = np.count_nonzero(Y, axis=0)
+#plt.show()
+date_str = data_sci_mgr.data_mgr.get_date_str()
+filename = 'Analysis/Data Characterisation/immunos_nans_count_hist_{}.png'.format(date_str)
+plt.savefig(filename)
 
-plt.hist(Z)
-plt.show()
+
 

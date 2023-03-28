@@ -64,7 +64,7 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
     df_hla_geno_tbl = df_hla_geno_tbl[summplemental_columns].copy()
 
     # Use subject specific alleles to look up allele reference data, then
-    # Computer if subject has motif
+    # Compute if subject has motif
     ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4']
     motifs = ['c1', 'c2', 'bw4', 'bw6']
 
@@ -95,28 +95,28 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
             else:
                 x2 = np.zeros(4)
 
-            motif_stats = [ x >= 1 for x in (x1 + x2)]
+            motif_stats = [ x >= 1 for x in (x1 + x2)] #i.e. [c1_bool, c2_bool, bw4_bool, bw6_bool]
 
             if hla_loci == 'c':
-                critereon_results['hla_c_c1'] = motif_stats[0]
-                critereon_results['hla_c_c2'] = motif_stats[1]
+                critereon_results['hla_c_c1'] = motif_stats[0] # i.e. c1
+                critereon_results['hla_c_c2'] = motif_stats[1] # i.e. c2
             elif hla_loci == 'b':
                 has_46_c1 = False
-                if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '46' and motif_stats[0]: 
+                if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '46' and motif_stats[0]: # i.e. b46 & c1
                     has_46_c1 = True
 
-                if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '46' and motif_stats[0]: 
+                if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '46' and motif_stats[0]: # i.e. b46 & c1
                     has_46_c1 = True
 
                 has_73_c1 = False
-                if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '73' and motif_stats[0]: 
+                if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '73' and motif_stats[0]: # i.e. b73 & c1
                     has_73_c1 = True
-                if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '73' and motif_stats[0]: 
+                if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '73' and motif_stats[0]: # i.e. b73 & c1
                     has_73_c1 = True
 
                 critereon_results['hla_b_46_c1'] = has_46_c1
                 critereon_results['hla_b_73_c1'] = has_73_c1
-                critereon_results['hla_b_bw4'] = motif_stats[2] 
+                critereon_results['hla_b_bw4'] = motif_stats[2] # i.e. bw4
         results_record = [critereon_results[key] for key in ligand_matching_criteria]
         motifs_records.append(results_record)
 

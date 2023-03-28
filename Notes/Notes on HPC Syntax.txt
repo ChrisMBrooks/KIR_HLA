@@ -1,0 +1,56 @@
+hpc notes 
+
+https://imperialcollegelondon.github.io/research-computing-tips/compute/2020/08/12/conda-getting-started.html
+
+https://imperial.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=2e03e4d4-4b34-4aa2-a973-abc60147d00b
+
+https://wiki.imperial.ac.uk/display/HPC/Running+your+first+job
+
+https://wiki.imperial.ac.uk/display/HPC/New+Job+sizing+guidance
+
+
+ssh cmb22@login.hpc.imperial.ac.uk
+
+source activate multi_comp_correction
+
+conda install python=3 pyarrow
+conda install python=3 pandas
+conda install python=3 statsmodels
+
+conda install -y python=3 statsmodels
+
+conda install r-base=4 r-poolr
+
+/rds/general/user/cmb22/home/anaconda3/envs/multi_comp_correction
+/rds/general/user/cmb22/home/anaconda3/envs/r_sandbox
+
+source activate multi_comp_correction
+
+#If the above doesn't work ... 
+export PATH=~/anaconda3/bin:$PATH
+
+#PBS -lselect=1:ncpus=1:mem=1gb
+#PBS -lwalltime=72:00:00
+module load anaconda3/personal
+
+cd $PBS_O_WORKDIR
+
+# add your job to the queue
+qsub your_job_script
+
+
+RDS
+
+job id 
+7103279.pbs - failed
+7103306.pbs - remove correlates
+7103441.pbs - mult comparisons - failed 
+7103462.pbs - mult comp - failed 
+7104017.pbs - mult comp - failed - memory 
+7104811.pbs - mult comp
+7104845.pbs - build - Didnt work ... 
+7105392.pbs - pt test 
+
+RDS endpoint: smb://rds.imperial.ac.uk/RDS/user/cmb22
+
+scp /Users/chrismbrooks/Documents/Imperial/Asquith Group/KIR_HLA/permutation_test_stand_alone.py cmb22@rds.imperial.ac.uk:/rds/general/user/cmb22/perm_test6/permutation_test_stand_alone6.py

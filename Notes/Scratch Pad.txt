@@ -15,3 +15,19 @@ Random Forest better deals with non-linear relationships
 
 Is Random Forest equipped for Sparse Data?
 RF does not fit very well on this type of problem -- bagging and suboptimal selection of splits may waste most of the model insight on zero-only areas
+
+
+L1/ L2 Notes
+
+"""
+For l1_ratio = 0 the penalty is an L2 penalty. For l1_ratio = 1 it is an L1 penalty
+L2, aka weight decay, forces weights toward but not exactly zero. 
+L1, absolute value of the weights, may be reduced to zero. 
+
+L1 Regularization, also called a lasso regression, adds the 
+“absolute value of magnitude” of the coefficient as a 
+penalty term to the loss function. 
+L2 Regularization, also called a ridge regression, adds the 
+“squared magnitude” of the coefficient as the 
+penalty term to the loss function
+"""

@@ -50,4 +50,6 @@ but they require normalization because the penalty coefficients are the same for
 Logistic regression requires normalization as well in order to avoid the vanishing gradient problem during the training phase.
 Source: https://towardsdatascience.com/which-models-require-normalized-data-d85ca3c85388
 
-
+Q: Can Random Forest Handle Missing values
+A: Not without imputation
+Source: https://datascience.stackexchange.com/questions/72764/can-random-forest-regressor-or-decision-trees-handle-missing-values-and-outliers

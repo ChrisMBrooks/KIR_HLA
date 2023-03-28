@@ -1,8 +1,10 @@
 import uuid
+from datetime import date
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+sns.set_theme()
 
 from Controllers.ConfigManager import ConfigManager as cm
 from Controllers.MySQLManager import MySQLManager as msm
@@ -31,7 +33,8 @@ def get_univariate_anlysis_df(write_to_table:bool):
         Y1 = Z1[:, 1]
 
         beta_hat = lrn_mgr.UnivariateRegression(X1, Y1)[1:]
-        p_scores = lrn_mgr.regression_p_score(X1, Y1, beta_hat=beta_hat)
+        #p_scores = lrn_mgr.regression_p_score(X1, Y1, beta_hat=beta_hat)
+        p_scores = lrn_mgr.regression_p_score2(X1, Y1)
 
         #Out of the Box Check of P-value calculation
         #sp_stats_r = sp.stats.linregress(x=X1, y=Y1, alternative='two-sided')
@@ -54,15 +57,18 @@ def generate_scatter(ols_results:pd.DataFrame, filename:str):
     ols_results['-log10(p-val)'] = -1*np.log10(ols_results['p_1'])
 
     cutoff = -1*np.log10(0.05)
-    cutoff2 = -1*np.log10(0.05/80000)
+    cutoff2 = -1*np.log10(6.32e-06)
+    cutoff3 = -1*np.log10(0.05/80000)
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
     ax.scatter(np.ones(ols_results['-log10(p-val)'].shape), ols_results['-log10(p-val)'])
     ax.axhline(cutoff, ls='--')
     ax.axhline(cutoff2, ls='--')
+    ax.axhline(cutoff3, ls='--')
     ax.text(1.005, cutoff + 0.05, "-log10(0.05)", c='blue')
-    ax.text(1.005, cutoff2 + 0.05, "-log10(0.05/80000)", c='blue')
+    ax.text(1.005, cutoff2 + 0.05, "-log10(6.32e-06)", c='blue')
+    ax.text(1.005, cutoff3 + 0.05, "-log10(0.05/80000)", c='blue')
     plt.xticks([1], [''])
     plt.ylabel('-log10(p-val)')
     plt.title('Univariate Null Hypothesis Significance Testing')
@@ -76,11 +82,12 @@ sql = msm.MySQLManager(config=config)
 data_mgr = dtm.DataManager(config=config, use_full_dataset=True)
 lrn_mgr = lrn.LearningManager(config=config)
 
-ols_results = get_univariate_anlysis_df(write_to_table=True)
+ols_results = get_univariate_anlysis_df(write_to_table=False)
 
 # ols_results = sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
 #     table_name='model_result_ols')
 
-filename = 'Analysis/Univariate/univar_p_value_scatter_20022023.png'
+date_str = date.today().strftime("%d%m%Y")
+filename = 'Analysis/Univariate/univar_p_value_scatter_{}.png'.format(date_str)
 generate_scatter(ols_results=ols_results, filename=filename)
 print('Complete.')

@@ -69,6 +69,7 @@ class LearningManager():
         p_vals = results.pvalues
         coeff = results.params
 
+        #p_vals included p_val for constant, use pvals[1:] to skip. 
         return p_vals
 
     def UnivariateRegressions(self, X, Y):

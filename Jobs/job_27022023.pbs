@@ -1,0 +1,8 @@
+#PBS -l select=1:ncpus=24:mem=128gb
+#PBS -l walltime=72:00:00
+
+module load anaconda3/personal
+source activate multi_comp_correction
+
+cd $PBS_O_WORKDIR
+python remove_correlates_stand_alone.py > output.txt

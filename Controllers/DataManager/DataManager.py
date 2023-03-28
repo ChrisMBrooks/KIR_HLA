@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
+import datetime
+
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 from Controllers.ConfigManager import ConfigManager as cm
 from Controllers.DefinitionManager import DefinitionManager as dm
@@ -13,7 +16,6 @@ class DataManager():
         self.setup()
 
     def setup(self):
-        self.mms = MinMaxScaler(feature_range=(0, 1))
         self.sql = msm.MySQLManager(config=self.config)
         self.datasources = self.config['setup']['datasources']
         self.schema_name = self.datasources[0]["schema_name"]
@@ -179,6 +181,42 @@ class DataManager():
         if len(records_to_insert) > 0:
             self.sql.insert_records(schema_name=schema, table_name=table, 
                 column_names=columns, values = records_to_insert)
+
+    def preprocess_data(self, X, Y, impute = True, standardise = True, normalise = True):
+        if impute:
+            X, Y = self.impute_missing_values(X, Y, strategy='mean')
+        if standardise:
+            X, Y = self.standardise(X, Y)
+        if normalise:
+            X, Y = self.normalise(X, Y, min=0, max=1) # Makes everything positive. 
         
-    def normalise(self, values):
-        return self.mms.fit_transform(values)
+        return X,Y
+
+    def impute_missing_values(self, X, Y, strategy):
+        imputer = SimpleImputer(missing_values=np.nan, strategy=strategy)
+        X = imputer.fit_transform(X)
+        Y = imputer.fit_transform(Y)
+        return X, Y
+
+    def standardise(self, X,Y):
+        x_std_sclr = StandardScaler()
+        y_std_sclr = StandardScaler()
+
+        X = x_std_sclr.fit_transform(X)
+        Y = y_std_sclr.fit_transform(Y)
+        return X, Y
+
+    def normalise(self, X, Y, min = 0, max = 1):
+        x_mms = MinMaxScaler(feature_range=(min, max))
+        y_mms = MinMaxScaler(feature_range=(min, max))
+
+        X = x_mms.fit_transform(X)
+
+        # MMS scales and translates each feature individually
+        Y = y_mms.fit_transform(Y) 
+
+        return X, Y
+    
+    def get_date_str(self):
+        current_date = datetime.datetime.now().strftime("%d%m%Y")
+        return current_date
