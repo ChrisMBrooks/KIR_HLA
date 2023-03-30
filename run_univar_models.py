@@ -12,18 +12,17 @@ run_id = str(uuid.uuid4().hex)
 use_full_dataset=True
 data_sci_mgr = dsm.DataScienceManager(use_full_dataset=use_full_dataset)
 
-phenos_subset = ['MFI:469', 'P1:22210', 'P1:20054', 'P1:22213']
-metric = 'f_ikir_count'
+metric = 'f_kir_score'
 partition = 'training'
 
 # Pull Data from DB
 X = data_sci_mgr.data_mgr.features(fill_na = False, partition = partition)
-X['strong_or_weak'] = X['f_kir2dl2_s'] | X['f_kir2dl2_w']
-X['f_ikir_count'] = X['f_kir2dl1'] + X['strong_or_weak'] + X['f_kir2dl3'] + X['f_kir3dl1']
+X['kir_count'] = X['kir2dl1'] + X['kir2dl2'] + X['kir2dl3'] + X['kir3dl1']
 
 X0 = X[['public_id', metric]]
 
 Y = data_sci_mgr.data_mgr.outcomes(fill_na = False, partition = partition)
+phenos_subset = list(Y.columns[1:-2])
 
 results = []
 for feature_name in phenos_subset:
@@ -50,7 +49,7 @@ results_df['partition'] = partition
 
 print(results_df)
 
-#data_mgr.insert_df_to_sql_table(df=results_df, columns=columns, schema='KIR_HLA_STUDY', 
-#    table='model_result_ols', use_batches=True, batch_size=5000)
+data_sci_mgr.data_mgr.insert_df_to_sql_table(df=results_df, columns=columns, schema='KIR_HLA_STUDY', 
+    table='model_result_ols', use_batches=True, batch_size=5000)
 
 print('Complete.')

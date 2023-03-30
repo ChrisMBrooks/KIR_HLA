@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 
 def get_phenotypes(partition = 'training'):
     data = {}
@@ -71,13 +72,13 @@ corr_df = phenos_df.corr()
 del phenos_df
 
 print('Computing Correlation Dict')
-threshold = 0.9
+threshold = 0.95
 corr_dict = get_correlation_dict(corr_df, threshold)
 
 print('Removing Correlates')
 uniques = remove_correlates(corr_dict)
 uniques = pd.Series(uniques, name='unlike_phenos')
 
-date = "27022023"
+date = datetime.datetime.now().strftime("%d%m%Y")
 filename = "unlike_phenos_{}.csv".format(date)
 uniques.to_csv(filename)

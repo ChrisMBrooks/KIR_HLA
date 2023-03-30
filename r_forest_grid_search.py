@@ -45,15 +45,15 @@ phenos, scores = data_sci_mgr.data_mgr.preprocess_data(
 scores = scores.ravel()
 
 # Instantiate Model & Hyper Params
-n_splits = 2
-n_repeats = 2
+n_splits = 4
+n_repeats = 10
 cv = RepeatedKFold(n_splits=n_splits, n_repeats=n_repeats, random_state=1)
 
 hyper_params_grid = dict()
 
-max_nodes_step = 10
+max_nodes_step = 5
 max_nodes_min = 5
-max_nodes_max = 40 + max_nodes_step
+max_nodes_max = 50 + max_nodes_step
 
 # max_depth: the maximum depth of the tree 
 hyper_params_grid['max_depth'] = np.arange(
@@ -63,7 +63,7 @@ hyper_params_grid['max_depth'] = np.arange(
 # n_estimators: the number of trees in the forest
 num_trees_step = 20
 num_trees_min = 20
-num_trees_max = 200 + num_trees_step
+num_trees_max = 300 + num_trees_step
 
 hyper_params_grid['n_estimators'] = np.arange(
     num_trees_min, num_trees_max, num_trees_step
@@ -74,7 +74,7 @@ gsc = GridSearchCV(
     param_grid=hyper_params_grid,
     cv=cv, 
     scoring='neg_mean_absolute_error', 
-    verbose=2, 
+    verbose=1, 
     n_jobs=-1 # parallelism, -1 means using all processors
 )
 
@@ -87,9 +87,9 @@ model = RandomForestRegressor(
     max_depth=h_params["max_depth"], 
     n_estimators=h_params["n_estimators"],
     bootstrap=True,
-    max_samples=0.8,
-    random_state=False, 
-    verbose=2,
+    max_samples=0.2,
+    random_state=42, 
+    verbose=1,
     n_jobs=-1
 )
 # Note if bootstrap is True, max_samples is the number of samples to draw from 
@@ -99,7 +99,7 @@ model.fit(phenos, scores)
 
 feature_weights = pd.Series(model.feature_importances_, index=phenos_subset)
 feature_weights = feature_weights.sort_values(ascending=False)
-filename = 'Analysis/RandomForest/feature_importance_rankings_{}.csv'.format(data_sci_mgr.data_mgr.get_date_str())
+filename = 'Analysis/RandomForest/feature_importance_impurity_rankings_{}.csv'.format(data_sci_mgr.data_mgr.get_date_str())
 feature_weights.to_csv(filename)
 
 # Computer Predictions and Summary Stats
@@ -128,6 +128,7 @@ plt.savefig(filename)
 plt.show()
 
 run_time = time.time() - start_time 
+print('run time:', run_time)
 print('Complete.')
 
 # Clustering Tips when performing feature selection with random forest regression on  highly collinear dataset

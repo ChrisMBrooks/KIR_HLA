@@ -16,3 +16,9 @@ delta mean: 0.028262654701146077
 delta std: 0.002458007929513359
 run id: cd8ded336fcf483d930f7f6683c3695c
 run time: 1309.6089673042297
+
+Gradular Grid Search, full set of data 
+best fit mae: -0.10050958112182601
+n_estimators: 180
+max_depth: 25
+Complete.
