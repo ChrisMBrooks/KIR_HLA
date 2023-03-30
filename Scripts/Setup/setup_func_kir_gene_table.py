@@ -65,7 +65,7 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
 
     # Use subject specific alleles to look up allele reference data, then
     # Compute if subject has motif
-    ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4']
+    ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_a_bw4', 'hla_b_bw4']
     motifs = ['c1', 'c2', 'bw4', 'bw6']
 
     mstr_data = df_hla_geno_tbl
@@ -73,7 +73,7 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
     motifs_records = []
     for index, row in mstr_data.iterrows():
         critereon_results = {key:False for key in ligand_matching_criteria}
-        for i in range(3, len(summplemental_columns), 2):
+        for i in range(1, len(summplemental_columns), 2):
 
             hla_code1 = row[summplemental_columns[i]]
             hla_code2 = row[summplemental_columns[i+1]]
@@ -117,6 +117,17 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
                 critereon_results['hla_b_46_c1'] = has_46_c1
                 critereon_results['hla_b_73_c1'] = has_73_c1
                 critereon_results['hla_b_bw4'] = motif_stats[2] # i.e. bw4
+
+            elif hla_loci == 'a':
+                has_hla_a_bw4 = False
+                if not pd.isna(row['fc_a_1']) and row['fc_a_1'][1:3] in ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
+                    has_hla_a_bw4 = True
+
+                if not pd.isna(row['fc_a_2']) and row['fc_a_2'][1:3] == ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
+                    has_hla_a_bw4 = True
+
+                critereon_results['hla_a_bw4'] = has_hla_a_bw4
+
         results_record = [critereon_results[key] for key in ligand_matching_criteria]
         motifs_records.append(results_record)
 
@@ -146,7 +157,7 @@ def compute_functional_kir_genotype(df_kir_geno_tbl:pd.DataFrame,
     mstr_df['f_kir2dl2_s'] = mstr_df['kir2dl2'] & (mstr_df['hla_c_c1'] | mstr_df['hla_b_46_c1'] | mstr_df['hla_b_73_c1'])
     mstr_df['f_kir2dl2_w'] = mstr_df['kir2dl2'] & mstr_df['hla_c_c2']
     mstr_df['f_kir2dl3'] = mstr_df['kir2dl3'] & (mstr_df['hla_c_c1'] | mstr_df['hla_b_46_c1'] | mstr_df['hla_b_73_c1'])
-    mstr_df['f_kir3dl1'] = mstr_df['kir3dl1'] & mstr_df['hla_b_bw4']
+    mstr_df['f_kir3dl1'] = mstr_df['kir3dl1'] & (mstr_df['hla_b_bw4'] | mstr_df['hla_a_bw4'])
 
     mstr_df['f_kir_count'] =  mstr_df['f_kir2dl1'].astype('int32') + \
         (mstr_df['f_kir2dl2_s'].astype('int32') | mstr_df['f_kir2dl2_w'].astype('int32')) + \
@@ -197,7 +208,7 @@ df_hla_allele_tbl = sql.read_table_into_data_frame(schema_name=schema_name,
 f_kir_df = compute_functional_kir_genotype(df_kir_geno_tbl,df_hla_geno_tbl, df_hla_allele_tbl)
 
 columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'hla_c_c1',
-       'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'f_kir2dl1',
+       'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'hla_a_bw4', 'f_kir2dl1',
        'f_kir2dl2_s', 'f_kir2dl2_w', 'f_kir2dl3', 'f_kir3dl1', 'f_kir_count',
        'f_kir_score'
 ]
