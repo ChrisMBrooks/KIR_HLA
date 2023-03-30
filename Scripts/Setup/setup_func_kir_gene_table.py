@@ -65,7 +65,7 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
 
     # Use subject specific alleles to look up allele reference data, then
     # Compute if subject has motif
-    ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_a_bw4', 'hla_b_bw4']
+    ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'hla_a_bw4']
     motifs = ['c1', 'c2', 'bw4', 'bw6']
 
     mstr_data = df_hla_geno_tbl
@@ -100,41 +100,36 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
             if hla_loci == 'c':
                 critereon_results['hla_c_c1'] = motif_stats[0] # i.e. c1
                 critereon_results['hla_c_c2'] = motif_stats[1] # i.e. c2
+
             elif hla_loci == 'b':
-                has_46_c1 = False
                 if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '46' and motif_stats[0]: # i.e. b46 & c1
-                    has_46_c1 = True
+                    critereon_results['hla_b_46_c1'] = True
 
                 if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '46' and motif_stats[0]: # i.e. b46 & c1
-                    has_46_c1 = True
+                    critereon_results['hla_b_46_c1'] = True
 
-                has_73_c1 = False
                 if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '73' and motif_stats[0]: # i.e. b73 & c1
-                    has_73_c1 = True
+                    critereon_results['hla_b_73_c1']
                 if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '73' and motif_stats[0]: # i.e. b73 & c1
-                    has_73_c1 = True
+                    critereon_results['hla_b_73_c1']
 
-                critereon_results['hla_b_46_c1'] = has_46_c1
-                critereon_results['hla_b_73_c1'] = has_73_c1
                 critereon_results['hla_b_bw4'] = motif_stats[2] # i.e. bw4
 
             elif hla_loci == 'a':
-                has_hla_a_bw4 = False
                 if not pd.isna(row['fc_a_1']) and row['fc_a_1'][1:3] in ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
-                    has_hla_a_bw4 = True
+                    critereon_results['hla_a_bw4'] = True
 
-                if not pd.isna(row['fc_a_2']) and row['fc_a_2'][1:3] == ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
-                    has_hla_a_bw4 = True
-
-                critereon_results['hla_a_bw4'] = has_hla_a_bw4
-
-        results_record = [critereon_results[key] for key in ligand_matching_criteria]
+                if not pd.isna(row['fc_a_2']) and row['fc_a_2'][1:3] in ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
+                    critereon_results['hla_a_bw4'] = True
+            
+        results_record = [row['public_id']] + [critereon_results[key] for key in ligand_matching_criteria]
         motifs_records.append(results_record)
 
     columns = ['public_id']
     columns.extend(ligand_matching_criteria)
-    mstr_data[ligand_matching_criteria] = motifs_records
-    return mstr_data[columns].copy()
+    temp = pd.DataFrame(motifs_records, columns=columns)
+
+    return temp
 
 def compute_functional_kir_genotype(df_kir_geno_tbl:pd.DataFrame, 
     df_hla_geno_tbl:pd.DataFrame, df_hla_allele_tbl:pd.DataFrame
