@@ -10,23 +10,26 @@ from Controllers.DefinitionManager import DefinitionManager as dm
 from Controllers.MySQLManager import MySQLManager as msm
 
 class DataManager():
-    def __init__(self, config, use_full_dataset:bool=False):
+    def __init__(self, config, use_full_dataset:bool=False, use_db:bool=True):
         self.config = config
         self.use_full_dataset = use_full_dataset
+        self.use_db = use_db
         self.setup()
 
     def setup(self):
         self.sql = msm.MySQLManager(config=self.config)
         self.datasources = self.config['setup']['datasources']
-        self.schema_name = self.datasources[0]["schema_name"]
+        self.schema_name = "KIR_HLA_STUDY"
 
         self.datasources = self.config['setup']['datasources']
-        self.table_names = [self.datasources[0]["table_name"], 
-            self.datasources[1]["table_name"], 
-            self.datasources[2]["table_name"]
+        self.table_names = ["raw_hla_genotype", 
+            "raw_kir_genotype", 
+            "raw_public_mapping"
         ]
-
-        self.pull_data_from_db()
+        if self.use_db:
+            self.pull_data_from_db()
+        else:
+            self.pull_data_from_files()
 
     def pull_data_from_db(self):
         self.data = dict()
@@ -43,7 +46,7 @@ class DataManager():
 
         self.data['kir_genotype'] = self.sql.read_table_into_data_frame(
             schema_name=self.schema_name,
-            table_name=self.table_names[1]
+            table_name="raw_kir_genotype"
         )
 
         self.data['func_kir_genotype'] = self.sql.read_table_into_data_frame(
@@ -60,6 +63,36 @@ class DataManager():
             schema_name=self.schema_name, 
             table_name='validation_partition'
         )
+
+        self.data['training_partition'] =  self.data['partitions'][
+             self.data['partitions']['validation_partition'] == 'TRAINING'
+        ]
+
+        self.data['validation_partition'] =  self.data['partitions'][
+             self.data['partitions']['validation_partition'] == 'VALIDATION'
+        ]
+        
+        if self.use_full_dataset:
+            filename = "Data/trait_values_transpose.parquet"
+            self.data['imm_phenotype_measurements'] = pd.read_parquet(filename) 
+        else:
+            filename = "Data/trait_values_transpose_short.csv"
+            self.data['imm_phenotype_measurements'] = pd.read_csv(filename, index_col=0) 
+
+    def pull_data_from_files(self):
+        self.data = dict()
+
+        sources = {'immunophenotype_assay': 'Data/immunophenotype_assay.csv',
+            'public_mapping':'Data/public_mapping_vw.csv',
+            'kir_genotype':'Data/raw_kir_genotype.csv',
+            'func_kir_genotype':'Data/functional_kir_genotype.csv',
+            'hla_genotype':'Data/raw_hla_genotype.csv',
+            'partitions':'Data/validation_partition.csv'
+        }
+        # Pull Data from DB
+        for key in sources:
+            source = sources[key]
+            self.data[key] = pd.read_csv(source, index_col=0)
 
         self.data['training_partition'] =  self.data['partitions'][
              self.data['partitions']['validation_partition'] == 'TRAINING'
