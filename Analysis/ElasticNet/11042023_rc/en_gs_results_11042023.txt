@@ -1,0 +1,8 @@
+Full Dataset, No Filtering, No Standardisation, Normalisation, Mean Imputation 
+
+Starting...
+best fit mae: -0.21811643665936803
+l1_ratio: 0.9600000000000006
+alpha: 0.007
+['a3a764d483a94c99ba032e8306e1eb67', 7216.780210018158, -0.20655363746841493, 20, 0.9600000000000006, 0.2, 1.0, 0.01, 0.007, 0.001, 0.062, 0.002]
+Complete.

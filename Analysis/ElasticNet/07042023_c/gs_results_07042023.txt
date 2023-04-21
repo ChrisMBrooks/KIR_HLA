@@ -1,0 +1,18 @@
+filename = 'Data/Subsets/clustered_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv'
+n_splits = 3
+n_repeats = 10
+
+l1_ratio_step = 0.01
+l1_ratio_min = 0.2
+l1_ratio_max = 0.99 + l1_ratio_step
+
+alpha_step = 0.002
+alpha_min = 0.001
+alpha_max = 0.06 + alpha_step
+
+Starting...
+best fit mae: -0.216974549
+l1_ratio: 0.72
+alpha: 0.007
+
+Complete.

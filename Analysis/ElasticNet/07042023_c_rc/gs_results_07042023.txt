@@ -1,0 +1,20 @@
+Clustering at 0.95 but with no filters on Phenos
+
+filename = 'Data/unlike_phenos_0.95_05042023.csv'
+n_splits = 3
+n_repeats = 10
+
+l1_ratio_step = 0.01
+l1_ratio_min = 0.2
+l1_ratio_max = 0.99 + l1_ratio_step
+
+alpha_step = 0.002
+alpha_min = 0.001
+alpha_max = 0.06 + alpha_step
+
+Starting...
+best fit mae: -0.2173180302255557
+l1_ratio: 0.9000000000000006
+alpha: 0.007
+['e7eefff36d384f56b71714ea1a75570b', 1043.00670170784, -0.2038634947601634, 19, 0.9000000000000006, 0.2, 1.0, 0.01, 0.007, 0.001, 0.062, 0.002]
+Complete.

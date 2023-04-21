@@ -1,0 +1,22 @@
+
+Dataset: 'Data/Subsets/clustered_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv'
+
+n_splits = 4
+n_repeats = 5
+
+max_nodes_step = 10
+max_nodes_min = 5
+max_nodes_max = 50 + max_nodes_step
+
+num_trees_step = 20
+num_trees_min = 20
+num_trees_max = 300 + num_trees_step
+
+
+Starting...
+Fitting 20 folds for each of 90 candidates, totalling 1800 fits
+best fit mae: -0.0994030314950158
+n_estimators: 160
+max_depth: 15
+run time: 20179.749923467636
+Complete.

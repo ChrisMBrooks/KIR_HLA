@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 import datetime
 
-from sklearn.impute import SimpleImputer
+from sklearn.impute import SimpleImputer, KNNImputer
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.model_selection import RepeatedKFold
 
 from Controllers.ConfigManager import ConfigManager as cm
 from Controllers.DefinitionManager import DefinitionManager as dm
@@ -120,7 +121,9 @@ class DataManager():
                 self.data['validation_partition'], on='public_id', how='inner'
             )
         else:
-            f_kir_geno_train_df = self.data['func_kir_genotype']
+            f_kir_geno_train_df = self.data['func_kir_genotype'].merge(
+                self.data['partitions'], on='public_id', how='inner'
+            )
 
         f_kir_geno_train_df.sort_values(by='public_id', inplace=True)
 
@@ -215,9 +218,32 @@ class DataManager():
             self.sql.insert_records(schema_name=schema, table_name=table, 
                 column_names=columns, values = records_to_insert)
 
-    def preprocess_data(self, X, Y, impute = True, standardise = True, normalise = True):
+    def partition_training_data(self, phenos:pd.DataFrame, scores:pd.DataFrame, n_splits:float, random_state:int):
+        cv = RepeatedKFold(n_splits=n_splits, n_repeats=1, random_state=random_state)
+        splits_gen = cv.split(phenos)
+        split = next(splits_gen)
+        train_indeces = split[0]
+        test_indeces = split[1]
+
+        phenos_df_t = phenos.iloc[train_indeces, :]
+        scores_df_t = scores.iloc[train_indeces, :]
+
+        phenos_df_v = phenos.iloc[test_indeces, :]
+        scores_df_v = scores.iloc[test_indeces, :]
+        return phenos_df_t, scores_df_t, phenos_df_v, scores_df_v
+
+    def reshape(self, phenos:pd.DataFrame, scores:pd.DataFrame):
+        scores = scores['f_kir_score'].values.reshape(-1,1)
+        if len(phenos.values.shape) == 1:
+            phenos = phenos.values.reshape(-1,1)
+        else:
+            phenos = phenos.values[:, 0:]
+        
+        return phenos, scores
+    
+    def preprocess_data(self, X, Y, impute = True, standardise = True, normalise = True, strategy='mean'):
         if impute:
-            X, Y = self.impute_missing_values(X, Y, strategy='mean')
+            X, Y = self.impute_missing_values(X, Y, strategy)
         if standardise:
             X, Y = self.standardise(X, Y)
         if normalise:
@@ -226,7 +252,18 @@ class DataManager():
         return X,Y
 
     def impute_missing_values(self, X, Y, strategy):
-        imputer = SimpleImputer(missing_values=np.nan, strategy=strategy)
+        if strategy.lower() == 'knn':
+            imputer = KNNImputer(
+                missing_values=np.nan, 
+                n_neighbors=2, 
+                weights='uniform'
+            )
+        else:
+            imputer = SimpleImputer(
+                missing_values=np.nan, 
+                strategy=strategy
+            )
+
         X = imputer.fit_transform(X)
         Y = imputer.fit_transform(Y)
         return X, Y
@@ -249,7 +286,64 @@ class DataManager():
         Y = y_mms.fit_transform(Y) 
 
         return X, Y
-    
+
+    def preprocess_data_v(self, X_t, Y_t, X_v, Y_v, impute = True, standardise = True, normalise = True, strategy='mean'):
+        if impute:
+            X_t, Y_t, X_v, Y_v, = self.impute_missing_values_v(X_t, Y_t, X_v, Y_v, strategy)
+        if standardise:
+            X_t, Y_t, X_v, Y_v, = self.standardise_v(X_t, Y_t, X_v, Y_v,)
+        if normalise:
+            X_t, Y_t, X_v, Y_v,= self.normalise_v(X_t, Y_t, X_v, Y_v, min=0, max=1) # Makes everything positive. 
+        
+        return X_t, Y_t, X_v, Y_v
+
+    def impute_missing_values_v(self, X_t, Y_t, X_v, Y_v, strategy):
+        if strategy.lower() == 'knn':
+            imputer = KNNImputer(
+                missing_values=np.nan, 
+                n_neighbors=2, 
+                weights='uniform'
+            )
+        else:
+            imputer = SimpleImputer(
+                missing_values=np.nan, 
+                strategy=strategy
+            )
+
+        imputer = imputer.fit(X_t)
+        X_t = imputer.transform(X_t)
+        X_v = imputer.transform(X_v)
+
+        imputer = imputer.fit(Y_t)
+        Y_t = imputer.transform(Y_t)
+        Y_v = imputer.transform(Y_v)
+        return X_t, Y_t, X_v, Y_v,
+
+    def standardise_v(self, X_t, Y_t, X_v, Y_v,):
+        scaler = StandardScaler()
+
+        scaler = scaler.fit(X_t)
+        X_t = scaler.transform(X_t)
+        X_v = scaler.transform(X_v)
+
+        scaler = scaler.fit(Y_t)
+        Y_t = scaler.transform(Y_t)
+        Y_v = scaler.transform(Y_v)
+        return X_t, Y_t, X_v, Y_v
+
+    def normalise_v(self, X_t, Y_t, X_v, Y_v, min = 0, max = 1):
+        scaler = MinMaxScaler(feature_range=(min, max))
+
+        scaler = scaler.fit(X_t)
+        X_t = scaler.transform(X_t)
+        X_v = scaler.transform(X_v)
+
+        scaler = scaler.fit(Y_t)
+        Y_t = scaler.transform(Y_t)
+        Y_v = scaler.transform(Y_v)
+
+        return X_t, Y_t, X_v, Y_v
+
     def get_date_str(self):
         current_date = datetime.datetime.now().strftime("%d%m%Y")
         return current_date

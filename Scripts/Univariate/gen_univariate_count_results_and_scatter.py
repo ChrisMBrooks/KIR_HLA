@@ -80,7 +80,7 @@ sql = msm.MySQLManager(config=config)
 data_mgr = dtm.DataManager(config=config, use_full_dataset=True)
 lrn_mgr = lrn.LearningManager(config=config)
 
-ols_results = get_univariate_anlysis_df(write_to_table=True)
+ols_results = get_univariate_anlysis_df(write_to_table=False)
 
 # ols_results = sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
 #     table_name='model_result_ols')

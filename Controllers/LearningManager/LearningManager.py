@@ -14,8 +14,9 @@ class LearningManager():
         self.setup()
 
     def setup(self):
-        self.ikir_dist_filename = './Data/iKIR_scores_distribution.csv'
-        self.ikir_score_dist_df = pd.read_csv(self.ikir_dist_filename)
+        pass
+        #self.ikir_dist_filename = './Data/iKIR_scores_distribution.csv'
+        #self.ikir_score_dist_df = pd.read_csv(self.ikir_dist_filename)
 
     def get_random_iKIR_score(self):
         n = 100000.0

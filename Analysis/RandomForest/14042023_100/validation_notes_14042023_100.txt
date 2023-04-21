@@ -1,0 +1,21 @@
+No Filtering
+baseline                                              -0.228082
+neg_mae_tt                                            -0.079191
+neg_mae_vv                                            -0.080075
+neg_mae_tv                                            -0.205403
+features      [P4:3799, MFI:469, P1:12345, P2:20950, P5 gd:2...
+dtype: object
+
+Filter out mu - 1*sigma  < 0
+baseline                                              -0.226057
+neg_mae_tt                                            -0.078074
+neg_mae_vv                                            -0.077578
+neg_mae_tv                                            -0.201412
+features      [P4:3799, MFI:469, P2:20950, P5 gd:297, P5 gd:...
+
+Filter out mu - 2*sigma  < 0
+baseline               -0.238746
+neg_mae_tt               -0.0923
+neg_mae_vv             -0.079554
+neg_mae_tv             -0.236232
+features      [P4:3799, MFI:469]

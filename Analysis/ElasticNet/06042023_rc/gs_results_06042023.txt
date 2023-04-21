@@ -1,0 +1,19 @@
+Whole Dataset, Standardisation, Normalisation, w/ Mean Imputation
+
+n_splits = 3
+n_repeats = 10
+
+l1_ratio_step = 0.01
+l1_ratio_min = 0.2
+l1_ratio_max = 0.99 + l1_ratio_step
+
+alpha_step = 0.002
+alpha_min = 0.001
+alpha_max = 0.06 + alpha_step
+
+Starting...
+best fit mae: -0.21811643665936808
+l1_ratio: 0.9600000000000006
+alpha: 0.007
+['43fca6cca5e44ac3a4b45c47525f350b', 22591.207718372345, -0.20655363746841493, 20, 0.9600000000000006, 0.2, 1.0, 0.01, 0.007, 0.001, 0.062, 0.002]
+Complete.

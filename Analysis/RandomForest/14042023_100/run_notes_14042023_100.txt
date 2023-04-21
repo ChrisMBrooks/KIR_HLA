@@ -1,0 +1,24 @@
+count = 100
+forward_selection = True
+backward_selection = True
+
+n_splits = 4
+n_repeats = 10
+tolerance = None
+
+filename = "Analysis/RandomForest/13042023_c/feature_importance_impurity_rankings_13042023.csv"
+phenos_subset = pd.read_csv(filename, index_col=0)
+phenos_subset = phenos_subset.sort_values(by='0', axis=0, ascending=False)
+phenos_subset = phenos_subset.index[0:count]
+
+impute = True, 
+standardise = False, 
+normalise = True
+
+h_params['max_depth'] = 200
+h_params['n_estimators'] = 300
+h_params['max_features'] = 0.3
+h_params['max_samples'] = 0.9
+h_params['bootstrap'] = True
+
+

@@ -191,6 +191,9 @@ def compute_kir_gene_posession(df:pd.DataFrame):
 def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame, 
     df_hla_allele_tbl:pd.DataFrame
 ):
+    # Refer to Paper for Definitions: 
+    # https://doi.org/10.1016/j.jaip.2022.04.036
+
     #String smithing into new columns...
     # Compute Compound HLA Nomenclature, vis-a-vis Z:NN:NN
     df_hla_allele_tbl = add_col_full_hla_nomenclature1(df_hla_allele_tbl)
@@ -204,8 +207,8 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
     df_hla_geno_tbl = df_hla_geno_tbl[summplemental_columns].copy()
 
     # Use subject specific alleles to look up allele reference data, then
-    # Computer if subject has motif
-    ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4']
+    # Compute if subject has motif
+    ligand_matching_criteria = ['hla_c_c1', 'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'hla_a_bw4']
     motifs = ['c1', 'c2', 'bw4', 'bw6']
 
     mstr_data = df_hla_geno_tbl
@@ -213,7 +216,7 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
     motifs_records = []
     for index, row in mstr_data.iterrows():
         critereon_results = {key:False for key in ligand_matching_criteria}
-        for i in range(3, len(summplemental_columns), 2):
+        for i in range(1, len(summplemental_columns), 2):
 
             hla_code1 = row[summplemental_columns[i]]
             hla_code2 = row[summplemental_columns[i+1]]
@@ -235,38 +238,41 @@ def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame,
             else:
                 x2 = np.zeros(4)
 
-            motif_stats = [ x >= 1 for x in (x1 + x2)]
+            motif_stats = [ x >= 1 for x in (x1 + x2)] #i.e. [c1_bool, c2_bool, bw4_bool, bw6_bool]
 
             if hla_loci == 'c':
-                critereon_results['hla_c_c1'] = motif_stats[0]
-                critereon_results['hla_c_c2'] = motif_stats[1]
+                critereon_results['hla_c_c1'] = motif_stats[0] # i.e. c1
+                critereon_results['hla_c_c2'] = motif_stats[1] # i.e. c2
+
             elif hla_loci == 'b':
-                # has_46_c1 = False
-                # if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '46' and motif_stats[0]: 
-                #     has_46_c1 = True
+                if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '46' and motif_stats[0]: # i.e. b46 & c1
+                    critereon_results['hla_b_46_c1'] = True
 
-                # if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '46' and motif_stats[0]: 
-                #     has_46_c1 = True
+                if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '46' and motif_stats[0]: # i.e. b46 & c1
+                    critereon_results['hla_b_46_c1'] = True
 
-                # has_73_c1 = False
-                # if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '73' and motif_stats[0]: 
-                #     has_73_c1 = True
-                # if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '73' and motif_stats[0]: 
-                #     has_73_c1 = True
+                if not pd.isna(row['fc_b_1']) and row['fc_b_1'][1:3] == '73' and motif_stats[0]: # i.e. b73 & c1
+                    critereon_results['hla_b_73_c1']
+                if not pd.isna(row['fc_b_2']) and row['fc_b_2'][1:3] == '73' and motif_stats[0]: # i.e. b73 & c1
+                    critereon_results['hla_b_73_c1']
 
-                # critereon_results['hla_b_46_c1'] = has_46_c1
-                # critereon_results['hla_b_73_c1'] = has_73_c1
-                critereon_results['hla_b_46_c1'] = motif_stats[0]
-                critereon_results['hla_b_73_c1'] = motif_stats[0]
-                critereon_results['hla_b_bw4'] = motif_stats[2] 
+                critereon_results['hla_b_bw4'] = motif_stats[2] # i.e. bw4
 
-        results_record = [critereon_results[key] for key in ligand_matching_criteria]
+            elif hla_loci == 'a':
+                if not pd.isna(row['fc_a_1']) and row['fc_a_1'][1:3] in ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
+                    critereon_results['hla_a_bw4'] = True
+
+                if not pd.isna(row['fc_a_2']) and row['fc_a_2'][1:3] in ['23', '24', '32'] and motif_stats[2]: # e.g. A*2301 & bw4
+                    critereon_results['hla_a_bw4'] = True
+            
+        results_record = [row['public_id']] + [critereon_results[key] for key in ligand_matching_criteria]
         motifs_records.append(results_record)
 
     columns = ['public_id']
     columns.extend(ligand_matching_criteria)
-    mstr_data[ligand_matching_criteria] = motifs_records
-    return mstr_data[columns].copy()
+    temp = pd.DataFrame(motifs_records, columns=columns)
+
+    return temp
 
 def compute_functional_kir_genotype(df_kir_geno_tbl:pd.DataFrame, 
     df_hla_geno_tbl:pd.DataFrame, df_hla_allele_tbl:pd.DataFrame
@@ -289,7 +295,7 @@ def compute_functional_kir_genotype(df_kir_geno_tbl:pd.DataFrame,
     mstr_df['f_kir2dl2_s'] = mstr_df['kir2dl2'] & (mstr_df['hla_c_c1'] | mstr_df['hla_b_46_c1'] | mstr_df['hla_b_73_c1'])
     mstr_df['f_kir2dl2_w'] = mstr_df['kir2dl2'] & mstr_df['hla_c_c2']
     mstr_df['f_kir2dl3'] = mstr_df['kir2dl3'] & (mstr_df['hla_c_c1'] | mstr_df['hla_b_46_c1'] | mstr_df['hla_b_73_c1'])
-    mstr_df['f_kir3dl1'] = mstr_df['kir3dl1'] & mstr_df['hla_b_bw4']
+    mstr_df['f_kir3dl1'] = mstr_df['kir3dl1'] & (mstr_df['hla_b_bw4'] | mstr_df['hla_a_bw4'])
 
     mstr_df['f_kir_count'] =  mstr_df['f_kir2dl1'].astype('int32') + \
         (mstr_df['f_kir2dl2_s'].astype('int32') | mstr_df['f_kir2dl2_w'].astype('int32')) + \

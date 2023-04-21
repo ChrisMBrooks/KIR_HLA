@@ -1,0 +1,3 @@
+best fit mae: -0.1801918664750524
+n_estimators: 180
+max_depth: 45

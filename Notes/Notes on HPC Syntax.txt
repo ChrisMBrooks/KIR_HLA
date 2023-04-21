@@ -9,7 +9,7 @@ https://wiki.imperial.ac.uk/display/HPC/Running+your+first+job
 https://wiki.imperial.ac.uk/display/HPC/New+Job+sizing+guidance
 
 
-ssh cmb22@login.hpc.imperial.ac.uk
+    ssh cmb22@login.hpc.imperial.ac.uk
 
 source activate multi_comp_correction
 

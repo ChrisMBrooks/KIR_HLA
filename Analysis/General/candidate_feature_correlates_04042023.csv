@@ -1,0 +1,2 @@
+,phenotype_id,marker_definition,parent_population,correlates,threshold,p_1
+0,P4:3799,CD2-314+158a+158b+,16+56,['P4:3052' 'P4:3055' 'P4:3075' 'P4:3078' 'P4:3769' 'P4:3772' 'P4:3796'],0.95,0.000229341

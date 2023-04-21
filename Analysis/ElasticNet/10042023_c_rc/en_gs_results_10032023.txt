@@ -1,0 +1,25 @@
+Data/unlike_phenos_0.95_05042023.csv
+
+knn imputation w/ n_neighbors = 2
+
+
+n_splits = 3
+n_repeats = 10
+
+l1_ratio_step = 0.01
+l1_ratio_min = 0.2
+l1_ratio_max = 0.99 + l1_ratio_step
+
+#Alpha = 0 is equivalent to an ordinary least square 
+alpha_step = 0.002
+alpha_min = 0.001
+alpha_max = 0.06 + alpha_step
+
+Starting...
+Performing Grid Search...
+Performing Final Model Fit...
+best fit mae: -0.2169303242544705
+l1_ratio: 0.8400000000000005
+alpha: 0.007
+['8e07689d719b4c8295027897c05b0fd5', 1670.0957071781158, -0.2000937824864973, 26, 0.8400000000000005, 0.2, 1.0, 0.01, 0.007, 0.001, 0.062, 0.002]
+Complete.

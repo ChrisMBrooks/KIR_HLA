@@ -1,0 +1,24 @@
+'Data/Subsets/clustered_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv'
+
+Median Imputation
+
+n_splits = 3
+n_repeats = 10
+
+hyper_params_grid = dict()
+
+l1_ratio_step = 0.01
+l1_ratio_min = 0.2
+l1_ratio_max = 0.99 + l1_ratio_step
+
+alpha_step = 0.002
+alpha_min = 0.001
+alpha_max = 0.06 + alpha_step
+
+
+Starting...
+best fit mae: -0.21679315835077792
+l1_ratio: 0.6100000000000003
+alpha: 0.009000000000000001
+['49c6b11c02fa4dffaa628dc5bfdcd13b', 723.1731679439545, -0.2003112156882327, 32, 0.6100000000000003, 0.2, 1.0, 0.01, 0.009000000000000001, 0.001, 0.062, 0.002]
+Complete.

@@ -1,0 +1,6 @@
+,0
+data_source, 'Data/Subsets/clustered_0.7_and_restricted_to_phenos_with_less_thn_10_zeros_11042023.csv'
+best fit mae,-0.2177571030246634
+l1_ratio,0.8800000000000006
+alpha,0.007
+run_record,"['e33e3148a4804143aba1f558f8fb53e0', 69.9928526878357, -0.20931412573850605, 11, 0.8800000000000006, 0.2, 1.0, 0.01, 0.007, 0.001, 0.062, 0.002]"

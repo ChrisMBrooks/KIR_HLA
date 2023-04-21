@@ -1,0 +1,101 @@
+,label,forward_selected,backward_selected
+0,P4:3799,True,True
+1,P1:9862,True,True
+2,MFI:469,True,True
+3,P1:9908,True,True
+4,P2:7298,True,True
+5,P7:132,True,True
+6,P1:22700,False,False
+7,P1:22213,True,True
+8,P4:82,False,False
+9,P2:154,False,False
+10,P1:12696,False,False
+11,P4:3793,True,False
+12,P2:20914,False,False
+13,P1:20793,False,False
+14,P1:5442,True,True
+15,P2:8332,True,True
+16,P2:9961,False,False
+17,P5 gd:1966,False,False
+18,MFI:79,False,False
+19,P1:22214,False,False
+20,P1:12453,False,False
+21,P6:83,False,False
+22,P6 earlyB:4,False,False
+23,P5 gd:1786,False,True
+24,P2:8981,True,True
+25,MFI:488,True,True
+26,P7 Mono:4938,False,False
+27,P2:4426,True,False
+28,P1:22471,False,True
+29,P2:20970,False,False
+30,P5 gd:1975,True,True
+31,P2:9807,False,False
+32,P5 gd:1894,False,True
+33,P2:9702,True,True
+34,P4:4754,True,True
+35,P7 Mono:1971,True,True
+36,P7 Mono:92,True,True
+37,P5 gd:305,False,False
+38,P2:25264,True,True
+39,P4:77,False,False
+40,P5 gd:224,True,False
+41,P5 CD8:62,False,True
+42,P2:22521,True,True
+43,P5 gd:1895,True,True
+44,P1:4428,True,True
+45,MFI:149,True,True
+46,P7:232,False,False
+47,P4:5290,True,False
+48,P5 gd:680,False,False
+49,P1:9598,True,True
+50,P5 gd:52,True,True
+51,P4:66,False,False
+52,P1:10321,True,False
+53,P1:23429,False,False
+54,P3:7021,True,False
+55,P4:5521,True,True
+56,P2:13332,False,True
+57,P7 Mono:6330,True,True
+58,P3:3691,True,False
+59,P7 Mono:7,False,False
+60,P1:44,False,False
+61,P5 gd:1667,True,True
+62,MFI:657,False,False
+63,P5 gd:1778,True,True
+64,P4:5530,False,False
+65,P1:6133,False,False
+66,P7 Mono:5890,True,True
+67,P6 earlyB:171,False,False
+68,P3:30,True,True
+69,P6:91,False,False
+70,P2:12510,False,False
+71,P1:4833,False,True
+72,P4:3333,True,True
+73,P1:9841,False,False
+74,P1:22232,True,True
+75,P1:11755,True,True
+76,P5 CD8:34,True,True
+77,P1:22903,True,False
+78,P4:3150,False,False
+79,P1:306,False,False
+80,P2:9216,True,True
+81,P5 gd:253,False,True
+82,P4:3556,False,False
+83,MFI:245,True,True
+84,P1:9870,True,False
+85,P3:857,False,True
+86,P6 earlyB:144,False,False
+87,P5 gd:1625,False,True
+88,P1:22943,False,False
+89,P5 gd:1993,True,True
+90,P1:22832,False,False
+91,P4:6005,False,False
+92,P4:5281,False,False
+93,P4:5805,True,True
+94,MFI:1,True,False
+95,P1:6551,True,True
+96,P1:8002,False,True
+97,P7:229,False,False
+98,MFI:39,True,True
+99,MFI:6,True,True

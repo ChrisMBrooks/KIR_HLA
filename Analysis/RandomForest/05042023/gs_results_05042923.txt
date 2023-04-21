@@ -1,0 +1,19 @@
+n_splits = 4
+n_repeats = 5
+
+max_nodes_step = 1
+max_nodes_min = 40
+max_nodes_max = 50 + max_nodes_step
+
+num_trees_step = 10
+num_trees_min = 160
+num_trees_max = 220 + num_trees_step
+
+---
+Starting...
+Fitting 20 folds for each of 77 candidates, totalling 1540 fits
+best fit mae: -0.18038077949582387
+n_estimators: 210
+max_depth: 44
+run time: 112365.12690067291
+Complete.

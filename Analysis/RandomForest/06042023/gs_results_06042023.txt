@@ -1,0 +1,20 @@
+
+max_nodes_step = 10
+max_nodes_min = 5
+max_nodes_max = 50 + max_nodes_step
+
+# n_estimators: the number of trees in the forest
+num_trees_step = 20
+num_trees_min = 20
+num_trees_max = 300 + num_trees_step
+
+bootstrap=True
+max_samples=0.2
+
+Starting...
+Fitting 20 folds for each of 90 candidates, totalling 1800 fits
+best fit mae: -0.18033431661750315
+n_estimators: 300
+max_depth: 35
+run time: 13329.316603183746
+Complete.
