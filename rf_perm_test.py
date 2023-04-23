@@ -60,6 +60,7 @@ h_params['n_estimators'] = 300
 h_params['max_features'] = 0.3
 h_params['max_samples'] = 0.9
 h_params['bootstrap'] = True
+h_params['min_samples_split'] = 40
 
 source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_3.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
@@ -99,6 +100,7 @@ model = RandomForestRegressor(
     bootstrap=h_params["bootstrap"],
     max_features=h_params["max_features"],
     max_samples=h_params["max_samples"],
+    min_samples_split=h_params["min_samples_split"],
     random_state=random_state, 
     verbose=1,
     n_jobs=n_jobs

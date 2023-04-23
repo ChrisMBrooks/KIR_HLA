@@ -7,13 +7,17 @@ import matplotlib.pyplot as plt
 sns.set_theme()
 
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import RepeatedKFold
-from sklearn.model_selection import cross_validate
 from sklearn.metrics import mean_absolute_error
 
 from Controllers.DataScienceManager import DataScienceManager as dsm
 
-def get_partitioned_data(phenos_subset:str, partition_training_dataset:bool, n_splits:int, random_state:int):
+def get_partitioned_data(
+        phenos_subset:str, 
+        partition_training_dataset:bool, 
+        n_splits:int, n_repeats:int, 
+        ith_repeat:int, random_state:int
+    ):
+
     phenos_t = data_sci_mgr.data_mgr.outcomes(fill_na=False, fill_na_value=None, partition='training')
     scores_t = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='training')
     phenos_t = phenos_t[phenos_subset].copy()
@@ -24,7 +28,7 @@ def get_partitioned_data(phenos_subset:str, partition_training_dataset:bool, n_s
 
     if partition_training_dataset:
         phenos_t, scores_t, phenos_v, scores_v = data_sci_mgr.data_mgr.partition_training_data(
-            phenos_t, scores_t, n_splits, random_state
+            phenos_t, scores_t, n_splits, n_repeats, ith_repeat, random_state
         )
 
     return phenos_t, scores_t, phenos_v, scores_v
@@ -32,7 +36,7 @@ def get_partitioned_data(phenos_subset:str, partition_training_dataset:bool, n_s
 def preprocess_for_validation(
         phenos_t:pd.DataFrame, scores_t:pd.DataFrame, 
         phenos_v:pd.DataFrame, scores_v:pd.DataFrame,
-        impute, strategy, standardise, normalise 
+        impute, strategy, standardise, normalise
     ):
     phenos_t, scores_t = data_sci_mgr.data_mgr.reshape(phenos_t, scores_t)
     phenos_v, scores_v = data_sci_mgr.data_mgr.reshape(phenos_v, scores_v)
@@ -47,57 +51,71 @@ def preprocess_for_validation(
     scores_v = scores_v.ravel()
     return phenos_t, scores_t, phenos_v, scores_v
 
-def get_final_score(phenos_subset, h_params:dict, 
-        validation_approach:str, n_splits:int, random_state:int,
+def get_final_score(phenos_subset, partition_training_dataset:bool, h_params:dict, 
+        validation_approach:str, n_splits:int, n_repeats:int, random_state:int,
         impute:bool, strategy:str, standardise:bool, normalise:bool
+    ):
+    
+    results = []
+    for i in range(1, n_repeats+1):
+        ith_repeat = i
+
+        phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(
+            phenos_subset, partition_training_dataset, 
+            n_splits, n_repeats, ith_repeat, random_state
+        )
+
+        phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
+            phenos_t, scores_t, phenos_v, scores_v, 
+            impute, strategy, standardise, normalise,
+        )
+
+        if validation_approach == 'tt':
+            phenos_t = phenos_t
+            phenos_v = phenos_t
+            scores_t = scores_t
+            scores_v = scores_t
+        elif validation_approach == 'tv':
+            phenos_t = phenos_t
+            phenos_v = phenos_v
+            scores_t = scores_t
+            scores_v = scores_v
+        elif validation_approach == 'vv':
+            phenos_t = phenos_v
+            phenos_v = phenos_v
+            scores_t = scores_v
+            scores_v = scores_v
+
+        model = RandomForestRegressor(
+            max_depth=h_params["max_depth"], 
+            n_estimators=h_params["n_estimators"],
+            bootstrap=h_params["bootstrap"],
+            max_features=h_params["max_features"],
+            max_samples=h_params["max_samples"],
+            min_samples_split = h_params['min_samples_split'],
+            random_state=42, 
+            verbose=0,
+            n_jobs=-1
+        )
+
+        model.fit(phenos_t, scores_t)
+        
+        # Computer Predictions and Summary Stats
+        y_hat = model.predict(phenos_v)
+        neg_mae = -1*mean_absolute_error(scores_v, y_hat)
+        results.append(neg_mae)
+
+    results = np.array(results)
+    return results.mean()
+
+def get_baseline(phenos_subset, partition_training_dataset:bool, 
+        h_params, random_state, n_jobs, 
+        impute, strategy, standardise, normalise
     ):
 
     phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(
-        phenos_subset, False, n_splits, random_state)
-    
-    phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
-        phenos_t, scores_t, phenos_v, scores_v, 
-        impute, strategy, standardise, normalise
+        phenos_subset, partition_training_dataset, n_splits, 1, 1, random_state
     )
-
-    if validation_approach == 'tt':
-        phenos_t = phenos_t
-        phenos_v = phenos_t
-        scores_t = scores_t
-        scores_v = scores_t
-    elif validation_approach == 'tv':
-        phenos_t = phenos_t
-        phenos_v = phenos_v
-        scores_t = scores_t
-        scores_v = scores_v
-    elif validation_approach == 'vv':
-        phenos_t = phenos_v
-        phenos_v = phenos_v
-        scores_t = scores_v
-        scores_v = scores_v
-
-    model = RandomForestRegressor(
-        max_depth=h_params["max_depth"], 
-        n_estimators=h_params["n_estimators"],
-        bootstrap=h_params["bootstrap"],
-        max_features=h_params["max_features"],
-        max_samples=h_params["max_samples"],
-        min_samples_split = h_params['min_samples_split'],
-        random_state=42, 
-        verbose=0,
-        n_jobs=-1
-    )
-
-    model.fit(phenos_t, scores_t)
-    
-    # Computer Predictions and Summary Stats
-    y_hat = model.predict(phenos_v)
-    neg_mae = -1*mean_absolute_error(scores_v, y_hat)
-
-    return neg_mae
-
-def get_baseline(phenos_subset, h_params, random_state, n_jobs, impute, strategy, standardise, normalise):
-    phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(phenos_subset, False, n_splits, random_state)
 
     phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
         phenos_t, scores_t, phenos_v, scores_v, 
@@ -126,11 +144,10 @@ def get_baseline(phenos_subset, h_params, random_state, n_jobs, impute, strategy
         predictions.append(neg_mae)
 
     neg_mae = np.array(predictions).mean()
-
     return neg_mae
 
 #Instantiate Controllers
-use_full_dataset=True
+use_full_dataset = True
 use_database = False
 
 data_sci_mgr = dsm.DataScienceManager(
@@ -140,7 +157,11 @@ data_sci_mgr = dsm.DataScienceManager(
 # Declare Config Params 
 n_jobs = 16 - 1
 n_splits = 4
+n_repeats = 5
 random_state = 42
+
+partition_training_dataset = True
+fs_bs_filter = 2
 
 impute = True
 strategy = 'mean'
@@ -162,33 +183,38 @@ output_filename = 'Analysis/RandomForest/rf_final_score_{}.csv'.format(date_str)
 # Pull Data from DB
 phenos_subset = pd.read_csv(source_filename, index_col=0)
 indeces = phenos_subset.values[:,1:3].sum(axis=1)
-indeces = np.where(indeces >= 1)
+indeces = np.where(indeces >= fs_bs_filter)
 phenos_subset = list(phenos_subset.iloc[indeces]['label'].values)
 
 validation_approaches = ['tt', 'vv', 'tv']
 output = {}
 
 output['baseline'] = get_baseline(
-    phenos_subset, h_params, random_state, n_jobs, 
+    phenos_subset, partition_training_dataset, h_params, random_state, n_jobs, 
     impute, strategy, standardise, normalise
 )
 
 for idx, approach in enumerate(validation_approaches):
     neg_mae = get_final_score(
         phenos_subset=phenos_subset,
+        partition_training_dataset = partition_training_dataset,
         h_params=h_params, 
         validation_approach=approach,
-        n_splits=n_splits, 
+        n_splits=n_splits,
+        n_repeats=n_repeats, 
         random_state = random_state,
         impute = impute, 
         strategy = strategy, 
         standardise = standardise, 
         normalise = normalise
     )
-    key = 'neg_mae' + '_' + validation_approaches[idx]
+    key = 'avg_neg_mae' + '_' + validation_approaches[idx]
     output[key] = neg_mae
 
 #Export Results
+output['data_source'] = source_filename
+output['partition_training_dataset'] = partition_training_dataset
+output['fs_bs_filter'] = fs_bs_filter
 output['features'] = phenos_subset
 output = pd.Series(output)
 print(output)

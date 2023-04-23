@@ -13,46 +13,52 @@ from sklearn.metrics import mean_absolute_error
 
 from Controllers.DataScienceManager import DataScienceManager as dsm
 
-def get_partitioned_data(phenos_subset:str):
+def get_partitioned_data(phenos_subset:str, partition_training_dataset:bool, n_splits:int, random_state:int):
     phenos_t = data_sci_mgr.data_mgr.outcomes(fill_na=False, fill_na_value=None, partition='training')
     scores_t = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='training')
+    phenos_t = phenos_t[phenos_subset].copy()
 
     phenos_v = data_sci_mgr.data_mgr.outcomes(fill_na=False, fill_na_value=None, partition='validation')
     scores_v = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='validation')
+    phenos_v = phenos_v[phenos_subset].copy()
 
-    scores_tv = pd.concat([scores_t, scores_v])
-    phenos_tv = pd.concat([phenos_t, phenos_v])
-
-    phenos_tv, scores_tv = preprocess(phenos_tv, scores_tv, phenos_subset)
-
-    phenos_t = phenos_tv[0:phenos_t.shape[0], :]
-    phenos_v = phenos_tv[phenos_t.shape[0]:, :]
-
-    scores_t = scores_tv[0:scores_t.shape[0]]
-    scores_v = scores_tv[scores_t.shape[0]:]
+    if partition_training_dataset:
+        phenos_t, scores_t, phenos_v, scores_v = data_sci_mgr.data_mgr.partition_training_data(
+            phenos_t, scores_t, n_splits, random_state
+        )
 
     return phenos_t, scores_t, phenos_v, scores_v
 
-def preprocess(phenos, scores, phenos_subset):
-    phenos = phenos[phenos_subset]
+def preprocess_for_validation(
+        phenos_t:pd.DataFrame, scores_t:pd.DataFrame, 
+        phenos_v:pd.DataFrame, scores_v:pd.DataFrame,
+        impute, strategy, standardise, normalise 
+    ):
+    phenos_t, scores_t = data_sci_mgr.data_mgr.reshape(phenos_t, scores_t)
+    phenos_v, scores_v = data_sci_mgr.data_mgr.reshape(phenos_v, scores_v)
 
-    # Standardise Data
-    scores = scores['f_kir_score'].values.reshape(-1,1)
-    if len(phenos.values.shape) == 1:
-        phenos = phenos.values.reshape(-1,1)
-    else:
-        phenos = phenos.values[:, 0:]
-
-    phenos, scores = data_sci_mgr.data_mgr.preprocess_data(
-        phenos, scores, impute=True, standardise=True, 
-        normalise=True, strategy='mean'
+    phenos_t, scores_t, phenos_v, scores_v = data_sci_mgr.data_mgr.preprocess_data_v(
+        X_t=phenos_t, Y_t=scores_t, X_v=phenos_v, Y_v=scores_v,
+        impute = impute, strategy=strategy, standardise = standardise, 
+        normalise = normalise
     )
 
-    scores = scores.ravel()
-    return phenos, scores
+    scores_t = scores_t.ravel()
+    scores_v = scores_v.ravel()
+    return phenos_t, scores_t, phenos_v, scores_v
 
-def get_final_score(phenos_subset, validation_approach=str):
-    phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(phenos_subset)
+def get_final_score(phenos_subset, partition_training_dataset:bool, h_params:dict, 
+        validation_approach:str, n_splits:int, random_state:int,
+        impute:bool, strategy:str, standardise:bool, normalise:bool
+    ):
+
+    phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(
+        phenos_subset, partition_training_dataset, n_splits, random_state)
+    
+    phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
+        phenos_t, scores_t, phenos_v, scores_v, 
+        impute, strategy, standardise, normalise
+    )
 
     if validation_approach == 'tt':
         phenos_t = phenos_t
@@ -70,15 +76,6 @@ def get_final_score(phenos_subset, validation_approach=str):
         scores_t = scores_v
         scores_v = scores_v
 
-        
-    h_params = dict()
-    h_params['max_depth'] = 6
-    h_params['n_estimators'] = 300
-    h_params['max_features'] = 0.3
-    h_params['max_samples'] = 0.9
-    h_params['bootstrap'] = True
-    h_params['min_samples_split'] = 40
-
     model = RandomForestRegressor(
         max_depth=h_params["max_depth"], 
         n_estimators=h_params["n_estimators"],
@@ -87,7 +84,7 @@ def get_final_score(phenos_subset, validation_approach=str):
         max_samples=h_params["max_samples"],
         min_samples_split = h_params['min_samples_split'],
         random_state=42, 
-        verbose=1,
+        verbose=0,
         n_jobs=-1
     )
 
@@ -99,15 +96,19 @@ def get_final_score(phenos_subset, validation_approach=str):
 
     return neg_mae
 
-def get_baseline(phenos_subset):
-    phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(phenos_subset)
+def get_baseline(phenos_subset, partition_training_dataset:bool, 
+        h_params, random_state, n_jobs, 
+        impute, strategy, standardise, normalise
+    ):
 
-    h_params = dict()
-    h_params['max_depth'] = 200
-    h_params['n_estimators'] = 300
-    h_params['max_features'] = 0.3
-    h_params['max_samples'] = 0.9
-    h_params['bootstrap'] = True
+    phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(
+        phenos_subset, partition_training_dataset, n_splits, random_state
+    )
+
+    phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
+        phenos_t, scores_t, phenos_v, scores_v, 
+        impute, strategy, standardise, normalise
+    )
 
     model = RandomForestRegressor(
         max_depth=h_params["max_depth"], 
@@ -115,9 +116,9 @@ def get_baseline(phenos_subset):
         bootstrap=h_params["bootstrap"],
         max_features=h_params["max_features"],
         max_samples=h_params["max_samples"],
-        random_state=42, 
-        verbose=1,
-        n_jobs=-1
+        random_state=random_state, 
+        verbose=0,
+        n_jobs=n_jobs
     )
     
     predictions = []
@@ -137,41 +138,73 @@ def get_baseline(phenos_subset):
 #Instantiate Controllers
 use_full_dataset=True
 use_database = False
+
 data_sci_mgr = dsm.DataScienceManager(
     use_full_dataset=use_full_dataset,
     use_database=use_database)
 
-# Pull Data from DB
-#Read in Subset of Immunophenotypes
-# date_str = '14042023'
-# filename = 'Analysis/RandomForest/{}_100/feature_importance_perm_rankings_{}.csv'.format(
-#     date_str, date_str
-# )
-filename = 'Analysis/RandomForest/14042023_100_alt/feature_importance_perm_rankings_14042023.csv'
-importances = pd.read_csv(filename, index_col=0)
-importances = importances[importances['importance_mean'] -1.0*importances['importance_std'] > 0].copy()
+# Declare Config Params 
+n_jobs = 16 - 1
+n_splits = 4
+random_state = 42
 
-phenos_subset = list(importances['feature'].values)
+partition_training_dataset = True
+fs_bs_filter = 2
+
+impute = True
+strategy = 'mean'
+standardise = True
+normalise = True
+
+h_params = dict()
+h_params['max_depth'] = 6
+h_params['n_estimators'] = 300
+h_params['max_features'] = 0.3
+h_params['max_samples'] = 0.9
+h_params['bootstrap'] = True
+h_params['min_samples_split'] = 40
+
+source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_3.csv'
+date_str = data_sci_mgr.data_mgr.get_date_str()
+output_filename = 'Analysis/RandomForest/rf_final_score_{}.csv'.format(date_str)
+
+# Pull Data from DB
+phenos_subset = pd.read_csv(source_filename, index_col=0)
+indeces = phenos_subset.values[:,1:3].sum(axis=1)
+indeces = np.where(indeces >= fs_bs_filter)
+phenos_subset = list(phenos_subset.iloc[indeces]['label'].values)
 
 validation_approaches = ['tt', 'vv', 'tv']
 output = {}
 
-output['baseline'] = get_baseline(phenos_subset)
+output['baseline'] = get_baseline(
+    phenos_subset, partition_training_dataset, h_params, random_state, n_jobs, 
+    impute, strategy, standardise, normalise
+)
+
 for idx, approach in enumerate(validation_approaches):
     neg_mae = get_final_score(
-        phenos_subset=phenos_subset, 
-        validation_approach=approach
+        phenos_subset=phenos_subset,
+        partition_training_dataset = partition_training_dataset,
+        h_params=h_params, 
+        validation_approach=approach,
+        n_splits=n_splits, 
+        random_state = random_state,
+        impute = impute, 
+        strategy = strategy, 
+        standardise = standardise, 
+        normalise = normalise
     )
     key = 'neg_mae' + '_' + validation_approaches[idx]
     output[key] = neg_mae
 
+#Export Results
+output['data_source'] = source_filename
+output['partition_training_dataset'] = partition_training_dataset
+output['fs_bs_filter'] = fs_bs_filter
 output['features'] = phenos_subset
-
 output = pd.Series(output)
 print(output)
-
-date_str = data_sci_mgr.data_mgr.get_date_str()
-filename = 'Analysis/RandomForest/final_score_{}.csv'.format(date_str)
-output.to_csv(filename)
+output.to_csv(output_filename)
 
 print('Complete.')

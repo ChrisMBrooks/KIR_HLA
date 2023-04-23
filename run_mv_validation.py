@@ -51,7 +51,7 @@ def get_final_score(phenos_subset, validation_approach:str,
                     n_splits, random_state, 
                     impute, strategy, standardise, normalise
     ):
-    
+
     phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(phenos_subset, False, n_splits, random_state)
 
     phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
@@ -133,21 +133,24 @@ data_sci_mgr = dsm.DataScienceManager(
 #Declare Config Params
 
 impute = True
-strategy = 'mean'
+strategy = 'median'
 standardise = True
 normalise = True
 
 random_state = 42
 n_splits = 4
 
-source_filename = 'Analysis/Multivariate/11042023_c_rc3/feature_importance_perm_rankings_11042023.csv'
+source_filename = 'Analysis/Multivariate/11042023_c_rc3/multivar_qc_fs_bs_candidate_features_11042023.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
-output_filename = 'Analysis/Multivariate/final_score_{}.csv'.format(date_str)
+date_str = '11042023'
+output_filename = 'Analysis/Multivariate/mv_final_score_{}.csv'.format(date_str)
 
 # Pull Data from DB
 #Read in Subset of Immunophenotypes
-candidates = pd.read_csv(source_filename, index_col=0)
-phenos_subset = list(candidates.values[:, 0])
+phenos_subset = pd.read_csv(source_filename, index_col=0)
+indeces = phenos_subset.values[:,1:3].sum(axis=1)
+indeces = np.where(indeces >= 1)
+phenos_subset = list(phenos_subset.iloc[indeces]['label'].values)
 
 # Evaluate Models
 validation_approaches = ['tt', 'vv', 'tv', 'tv_cv']

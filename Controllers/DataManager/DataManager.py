@@ -218,10 +218,24 @@ class DataManager():
             self.sql.insert_records(schema_name=schema, table_name=table, 
                 column_names=columns, values = records_to_insert)
 
-    def partition_training_data(self, phenos:pd.DataFrame, scores:pd.DataFrame, n_splits:float, random_state:int):
-        cv = RepeatedKFold(n_splits=n_splits, n_repeats=1, random_state=random_state)
+    def partition_training_data(self, 
+            phenos:pd.DataFrame, scores:pd.DataFrame, 
+            n_splits:float, n_repeats:int = 1, ith_repeat:int = 1, 
+            random_state:int = 42
+        ):
+
+        cv = RepeatedKFold(
+            n_splits=n_splits, 
+            n_repeats=n_repeats, 
+            random_state=random_state
+        )
+
         splits_gen = cv.split(phenos)
-        split = next(splits_gen)
+        
+        split = None
+        for i in range(0, ith_repeat,1):
+            split = next(splits_gen)
+        
         train_indeces = split[0]
         test_indeces = split[1]
 

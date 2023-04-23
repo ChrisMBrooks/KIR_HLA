@@ -1,0 +1,9 @@
+,0
+baseline,-0.22586004430127157
+avg_neg_mae_tt,-0.1621038126968723
+avg_neg_mae_vv,-0.18730542697868663
+avg_neg_mae_tv,-0.20404855475830566
+data_source,Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_10.csv
+partition_training_dataset,True
+fs_bs_filter,2
+features,"['P4:3799', 'MFI:469', 'P1:22240', 'P2:19843', 'P7:132', 'P1:9862', 'P2:384', 'P2:8332', 'P4:5521', 'P1:12372', 'P1:495', 'P1:22232', 'P2:13909', 'P1:232', 'P5 gd:1993', 'P4:3784', 'P5 gd:1894', 'P1:4428', 'P5 gd:7', 'P1:3284', 'P5 gd:596', 'P1:408', 'P5 gd:1786', 'P2:7225', 'P7 Mono:3409', 'P2:25264', 'P1:9464', 'P2:8765', 'P5 gd:1667', 'MFI:348', 'P4:3387', 'P4:5520', 'P1:8986', 'P2:19752', 'P7 Mono:6426', 'P7 Mono:92', 'P7 Mono:5390', 'P5 gd:692', 'P3:3613', 'P6 earlyB:90']"

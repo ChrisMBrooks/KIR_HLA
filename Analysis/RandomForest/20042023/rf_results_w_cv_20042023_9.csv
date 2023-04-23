@@ -1,0 +1,10 @@
+,0
+data_source,Data/Subsets/clustered_0.95_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv
+avg_neg_mae,-0.21963132519691367
+max_depth,200
+n_estimators,300
+max_features,0.3
+max_samples,0.9
+bootstrap,True
+min_samples_split,40
+run_id,eeeea6feb4934608b16752f8d6b1a8dd

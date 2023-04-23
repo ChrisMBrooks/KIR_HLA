@@ -1,0 +1,10 @@
+,0
+data_source,Data/unlike_phenos_0.95_05042023.csv
+avg_neg_mae,-0.22017408732960114
+max_depth,200
+n_estimators,300
+max_features,0.3
+max_samples,0.9
+bootstrap,True
+min_samples_split,40
+run_id,cc5053d3417b4d7ea95a98b0af56128d
