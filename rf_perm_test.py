@@ -45,10 +45,13 @@ data_sci_mgr = dsm.DataScienceManager(
 
 #Set Configuration Params
 partition_training_dataset = True
-num_repeats = 10
+fs_bs_filter = 2
+
 n_jobs = 16 - 1
+n_splits = 5
+num_repeats = 4
 random_state = 42
-n_splits = 4
+
 impute = True
 strategy='median'
 standardise = True
@@ -62,7 +65,9 @@ h_params['max_samples'] = 0.9
 h_params['bootstrap'] = True
 h_params['min_samples_split'] = 40
 
-source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_3.csv'
+scoring = 'neg_mean_absolute_error'
+
+source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_7.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
 results_filename = 'Analysis/RandomForest/feature_importance_perm_values_{}.csv'.format(date_str)
 plot_filename = "Analysis/RandomForest/feature_import_box_plot_{}.png".format(date_str)
@@ -70,7 +75,7 @@ plot_filename = "Analysis/RandomForest/feature_import_box_plot_{}.png".format(da
 #Retrieve Data
 phenos_subset = pd.read_csv(source_filename, index_col=0)
 indeces = phenos_subset.values[:,1:3].sum(axis=1)
-indeces = np.where(indeces >= 1)
+indeces = np.where(indeces >= fs_bs_filter)
 phenos_subset = list(phenos_subset.iloc[indeces]['label'].values)
 
 scores_t = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='training')
@@ -110,7 +115,7 @@ fitted_model = model.fit(phenos_t, scores_t)
 
 # Run Permutation Tests
 results = permutation_importance(fitted_model, phenos_v, scores_v, n_repeats=num_repeats,
-    random_state=random_state, scoring ='neg_mean_absolute_error', n_jobs=n_jobs
+    random_state=random_state, scoring=scoring, n_jobs=n_jobs
 )
 
 # Format Results
@@ -133,6 +138,15 @@ if partition_training_dataset:
     perm_type = 'train-test'
 else:
     perm_type = 'train-validate'
+print(importances_df)
+
+mean = importances_df.values.mean(axis=0)
+std  = importances_df.values.std(axis=0)
+filter_condition = mean -2*std
+indeces = np.where(filter_condition > 0)[0]
+columns = importances_df.columns.values
+columns = [columns[i] for i in indeces]
+importances_df = importances_df[columns]
 
 ax = importances_df.plot.box(vert=False, whis=1.5)
 ax.set_title("Permutation Importances ({})".format(perm_type))

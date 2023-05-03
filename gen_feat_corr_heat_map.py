@@ -15,15 +15,14 @@ data_sci_mgr = dsm.DataScienceManager(
     use_full_dataset=use_full_dataset, 
     use_database=use_database
 )
-date_str = '06042023'
+"""date_str = '06042023'
 filename = 'Analysis/Multivariate/{}/multivar_qc_fs_bs_candidate_features_{}.csv'.format(date_str, date_str) 
 phenos_subset = pd.read_csv(filename, index_col=0)
 indeces = phenos_subset.values[:,1:3].sum(axis=1)
 indeces = np.where(indeces >= 1)
-phenos_to_plot = list(phenos_subset.iloc[indeces]['label'].values)
+phenos_to_plot = list(phenos_subset.iloc[indeces]['label'].values)"""
 
-phenos_to_plot = ['P1:20365', 'MFI:469', 'MFI:8',
-'P7 Mono:1287', 'P4:5290', 'P1:10321']
+phenos_to_plot = ['P4:3799', 'P4:3793', 'P4:5806', 'P4:5281', 'P4:5858', 'MFI:469', 'MFI:488']
 
 phenos_df_t = data_sci_mgr.data_mgr.outcomes(fill_na=False, fill_na_value=None, partition='training')
 phenos_df_v = data_sci_mgr.data_mgr.outcomes(fill_na=False, fill_na_value=None, partition='validation')
@@ -40,6 +39,7 @@ sns.heatmap(data, annot = True)
 plt.title('Correlation Heat Map')
 date_str = data_sci_mgr.data_mgr.get_date_str()
 
+plt.show()
+
 filename = 'Analysis/Multivariate/{}/heatmap_{}_{}.png'.format(date_str, phenos_to_plot[0], date_str)
 plt.savefig(filename)
-plt.show()

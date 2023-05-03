@@ -27,11 +27,6 @@ else:
     backward_selection = True
     iteration_id = 1
 
-n_jobs = 16 - 1
-n_splits = 4
-n_repeats = 10
-tolerance = None
-
 use_full_dataset=True
 use_database = False
 
@@ -40,6 +35,27 @@ data_sci_mgr = dsm.DataScienceManager(
     use_full_dataset=use_full_dataset, 
     use_database=use_database
 )
+
+# Declare Config Params
+n_jobs = 16 - 1
+n_splits = 4
+n_repeats = 10
+random_state_1 = 42
+random_state_2 = 21
+tolerance = None
+
+impute = True
+standardise = False
+normalise = False
+strategy='mean'
+
+h_params = dict()
+
+h_params['max_depth'] = 200
+h_params['n_estimators'] = 300
+h_params['max_features'] = 0.3
+h_params['max_samples'] = 0.9
+h_params['bootstrap'] = True
 
 #Read in Subset of Immunophenotypes
 """ cut_off = 0.0001
@@ -65,23 +81,18 @@ else:
     phenos = phenos.values[:, 0:]
 
 phenos, scores = data_sci_mgr.data_mgr.preprocess_data(
-    X=phenos, Y=scores, impute = True, standardise = False, 
-    normalise = False, strategy='mean'
+    X=phenos, Y=scores, impute = impute, standardise = standardise, 
+    normalise = normalise, strategy=strategy
 )
 
 scores = scores.ravel()
 
 # Fit the Model 
-cv = RepeatedKFold(n_splits=n_splits, n_repeats=n_repeats, random_state=1)
-
-# Instantiate Model & Hyper Params
-h_params = dict()
-
-h_params['max_depth'] = 200
-h_params['n_estimators'] = 300
-h_params['max_features'] = 0.3
-h_params['max_samples'] = 0.9
-h_params['bootstrap'] = True
+cv = RepeatedKFold(
+    n_splits=n_splits, 
+    n_repeats=n_repeats, 
+    random_state=random_state_1
+)
 
 # Instantiate Model    
 model = RandomForestRegressor(
@@ -90,7 +101,7 @@ model = RandomForestRegressor(
     bootstrap=h_params["bootstrap"],
     max_features=h_params["max_features"],
     max_samples=h_params["max_samples"],
-    random_state=42, 
+    random_state=random_state_2, 
     verbose=1,
     n_jobs=n_jobs
 )

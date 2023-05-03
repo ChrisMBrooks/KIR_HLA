@@ -1,0 +1,101 @@
+,label,forward_selected,backward_selected
+0,P4:3799,True,True
+1,MFI:469,True,True
+2,P1:22213,True,False
+3,P1:9862,True,True
+4,P5 gd:1759,False,False
+5,P1:22913,True,True
+6,P2:154,False,False
+7,P1:9908,False,True
+8,P1:22232,True,True
+9,P1:20030,False,False
+10,P5 gd:524,True,False
+11,P2:5231,False,True
+12,P2:5911,True,False
+13,P1:22834,True,True
+14,P1:22214,True,True
+15,P5 gd:1966,False,False
+16,MFI:311,True,False
+17,P1:22700,False,False
+18,P1:20790,False,False
+19,P2:8332,True,True
+20,P1:22240,True,True
+21,P1:21497,True,False
+22,P1:12372,False,False
+23,P4:3556,False,False
+24,P3:30,True,True
+25,P1:9598,False,False
+26,P6 earlyB:4,False,True
+27,P7 Mono:1890,True,True
+28,P2:22794,True,True
+29,P2:9726,False,False
+30,P1:10294,False,False
+31,P4:5806,True,True
+32,P5 gd:1658,True,True
+33,P6 earlyB:172,False,False
+34,P6 earlyB:171,False,False
+35,P1:22471,False,True
+36,MFI:74,True,True
+37,P1:495,True,True
+38,P5 gd:297,True,True
+39,P1:9627,True,False
+40,P2:20950,True,True
+41,P5 gd:1832,False,False
+42,P1:7771,True,True
+43,P1:9378,False,False
+44,P1:6130,True,True
+45,P7 Mono:4045,False,False
+46,P3:7720,False,True
+47,P1:10564,False,True
+48,P2:9806,False,False
+49,P1:23183,False,False
+50,P1:6129,False,False
+51,P1:12687,False,False
+52,P1:10573,False,False
+53,P5 gd:596,False,False
+54,P2:22065,True,True
+55,P1:6461,True,True
+56,P1:11936,False,True
+57,MFI:6,False,True
+58,P1:3554,True,True
+59,P1:9847,False,False
+60,P1:6102,True,True
+61,P1:10222,False,False
+62,P1:12696,False,False
+63,P1:7770,True,True
+64,P4:3793,True,True
+65,P1:6019,False,True
+66,P1:8026,False,False
+67,P7 Mono:4162,False,False
+68,P3:7665,False,False
+69,P2:20911,True,True
+70,P5 CD8:94,True,False
+71,P2:21039,False,False
+72,P4:3706,False,False
+73,P1:23185,False,False
+74,P2:20191,False,False
+75,P6:171,False,False
+76,MFI:488,True,True
+77,P2:9702,True,True
+78,P4:5281,True,True
+79,P4:5858,True,True
+80,P1:4004,False,False
+81,P4:65,False,False
+82,P5 gd:1993,True,True
+83,P7:57,True,False
+84,P7 Mono:6260,True,True
+85,P1:4428,True,True
+86,P5 gd:1667,True,True
+87,P1:12345,True,True
+88,P5 gd:1894,False,False
+89,P1:9464,True,True
+90,P5 gd:2009,True,False
+91,P7 Mono:1780,True,True
+92,P5 gd:1407,True,True
+93,P2:9216,False,False
+94,P7 Mono:5197,True,True
+95,P1:9834,False,False
+96,P1:22903,False,True
+97,P1:44,False,False
+98,P6:80,False,False
+99,P1:22483,True,False

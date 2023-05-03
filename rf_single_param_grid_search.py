@@ -28,14 +28,14 @@ data_sci_mgr = dsm.DataScienceManager(
 #Read in Subset of Immunophenotypes
 #cut_off = 10
 #filename0 = "Data/Subsets/na_filtered_phenos_less_thn_{}_zeros.csv".format(str(cut_off))
-filename0 = 'Data/Subsets/clustered_0.95_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv'
+source_filename = 'Data/Subsets/clustered_0.95_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv'
 
 """filename0 = 'Analysis/RandomForest/14042023_100_tuned/feature_importance_perm_rankings_14042023.csv'
 phenos_subset = pd.read_csv(filename0, index_col=0)
 phenos_subset = phenos_subset[phenos_subset['importance_mean'] - 0*phenos_subset['importance_std'] > 0].copy()
 phenos_subset = list(phenos_subset['feature']) """
 
-phenos_subset = list(pd.read_csv(filename0, index_col=0).values[0, :])
+phenos_subset = list(pd.read_csv(source_filename, index_col=0).values[0, :])
 
 scores = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='training')
 phenos = data_sci_mgr.data_mgr.outcomes(fill_na=False, fill_na_value=None, partition='training')
@@ -166,7 +166,7 @@ plt.savefig(filename)
 plt.show()
 
 output = {}
-output['data_source'] = filename0
+output['data_source'] = source_filename
 output['overall_neg_mae'] = neg_mae
 output['max_depth'] = h_params['max_depth']
 output['n_estimators'] = h_params['n_estimators']

@@ -41,8 +41,10 @@ def compute_kir_gene_posession(df:pd.DataFrame):
     df['kir2dl3'] = df['kir2dl3_t50'] > 0
 
     df['kir3dl1'] = df['kir3dl1ex4_t50'] + df['kir3dl1ex9_t50'] > 0
+
+    df['kir_count'] = df['kir2dl1'] + df['kir2dl2'] + df['kir2dl3'] + df['kir3dl1']
     
-    columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1']
+    columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'kir_count']
     return df[columns].copy()
 
 def compute_motif_posession(df_hla_geno_tbl:pd.DataFrame, 
@@ -202,7 +204,7 @@ df_hla_allele_tbl = sql.read_table_into_data_frame(schema_name=schema_name,
 # Compute Functional Kir Gene Posession
 f_kir_df = compute_functional_kir_genotype(df_kir_geno_tbl,df_hla_geno_tbl, df_hla_allele_tbl)
 
-columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'hla_c_c1',
+columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'kir_count', 'hla_c_c1',
        'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'hla_a_bw4', 'f_kir2dl1',
        'f_kir2dl2_s', 'f_kir2dl2_w', 'f_kir2dl3', 'f_kir3dl1', 'f_kir_count',
        'f_kir_score'

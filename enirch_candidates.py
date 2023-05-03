@@ -19,11 +19,14 @@ data_sci_mgr = dsm.DataScienceManager(
     use_database=use_database
 )
 
-filename = 'Analysis/Multivariate/11042023_c_rc2/multivar_qc_fs_bs_candidate_features_11042023.csv' 
+"""filename = 'Analysis/Multivariate/11042023_c_rc2/multivar_qc_fs_bs_candidate_features_11042023.csv' 
 phenos_subset = pd.read_csv(filename, index_col=0)
 indeces = phenos_subset.values[:,1:3].sum(axis=1)
 indeces = np.where(indeces >= 1)
-candidates = pd.Series(phenos_subset.iloc[indeces]['label'].values, name='phenotype_id')
+candidates = pd.Series(phenos_subset.iloc[indeces]['label'].values, name='phenotype_id')"""
+
+phenos_subset = ['P4:3799', 'MFI:469', 'P5 gd:1759', 'P1:7363', 'P2:8981', 'P2:8332', 'P7 Mono:3409', 'P2:19526']
+candidates = pd.Series(phenos_subset, name='phenotype_id')
 
 if cluster_cut_off == 0.95:
     filename = 'Data/phenos_corr_dict_0.95_05042023.parquet'
@@ -43,6 +46,6 @@ candidates = candidates.merge(pheno_data_stats, how='left', left_on='phenotype_i
 candidates = candidates.merge(correlates, how='left', left_on='phenotype_id', right_on='label')
 
 date_str = data_sci_mgr.data_mgr.get_date_str()
-filename = 'Analysis/Multivariate/candidate_summary_stats_{}.csv'.format(date_str)
+filename = 'Analysis/RandomForest/candidate_summary_stats_{}.csv'.format(date_str)
 candidates.to_csv(filename)
 

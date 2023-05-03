@@ -9,7 +9,7 @@ import pandas as pd
 from Controllers.DataScienceManager import DataScienceManager as dsm
 
 #Instantiate Controllers
-use_full_dataset = True
+use_full_dataset = False
 use_database = False
 data_sci_mgr = dsm.DataScienceManager(
     use_full_dataset=use_full_dataset, 
@@ -514,7 +514,7 @@ date_str = data_sci_mgr.data_mgr.get_date_str()
 filename = 'Analysis/Multivariate/Summary/candidates_summary_{}.csv'.format(date_str)
 candidates.to_csv(filename)"""
 
-pheno_stats = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
+"""pheno_stats = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
     table_name='immunophenotype_summary_stats'
 )
 
@@ -527,4 +527,74 @@ low_nan_phenos = unlike_phenos[unlike_phenos['nans_count'] <= 10]
 low_nan_phenos = low_nan_phenos['measurement_id']
 date_str = data_sci_mgr.data_mgr.get_date_str()
 filename = 'Data/Subsets/clustered_and_restricted_to_phenos_with_less_thn_10_zeros_{}.csv'.format(date_str)
-low_nan_phenos.to_csv(filename)
+low_nan_phenos.to_csv(filename)"""
+
+"""ikir_labels = ['kir2dl1', 'kir2dl2_s', 'kir2dl2_w', 'kir2dl3', 'kir3dl1']
+h_param_sets = []
+for index in range(0, len(ikir_labels)):
+    ikir_label = ikir_labels[index].upper()
+    ikir_tag = 'f_{}'.format(ikir_labels[index])
+
+    filename = 'Analysis/LogisticRegression/26042023/{}/lr_gs_scores_{}_26042023.csv'.format(ikir_label, ikir_tag)
+    gs_scores = pd.read_csv(filename, index_col=0)
+    cut_off = np.trunc(gs_scores['avg_neg_mae'].max()*100)/100
+
+    gs_scores['mae_trnc'] = np.trunc(gs_scores['avg_neg_mae']*100)/100
+
+    gs_scores = gs_scores[gs_scores['mae_trnc'] == cut_off].copy()
+    candidates = gs_scores[gs_scores['C'] == gs_scores['C'].min()]
+
+    h_params = {}
+    h_params['label'] = ikir_labels[index]
+    h_params['C'] = candidates.values[0, 0]
+    h_params['l1_ratio'] = candidates.values[0,2]
+    h_params['score'] = candidates.values[0,7]
+    h_param_sets.append(h_params)
+
+h_param_sets  = pd.DataFrame(h_param_sets)
+print(h_param_sets)
+
+filename = 'Analysis/LogisticRegression/lr_gs_candidate_h_params_26042023.csv'
+h_param_sets.to_csv(filename)"""
+
+"""pheno_definitions = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
+    table_name='immunophenotype_definitions'
+)
+
+source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_2.csv'
+candidates = pd.read_csv(source_filename, index_col=0)
+
+
+candidates = candidates.merge(pheno_definitions, how='left', left_on='label', right_on='phenotype_id')
+filename = '/Users/chrismbrooks/Downloads/output.csv'
+candidates.to_csv(filename)"""
+
+"""ikir_data = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
+    table_name='functional_kir_genotype'
+)
+
+columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'hla_c_c1',
+       'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'hla_a_bw4',
+       'f_kir2dl1', 'f_kir2dl2_s', 'f_kir2dl2_w', 'f_kir2dl3', 'f_kir3dl1',
+       'f_kir_count', 'f_kir_score']
+
+ikir_data['kir_count'] = ikir_data['kir2dl1'] + ikir_data['kir2dl2'] + ikir_data['kir2dl3'] + ikir_data['kir3dl1']
+
+columns = ['public_id', 'kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'kir_count', 'hla_c_c1',
+       'hla_c_c2', 'hla_b_46_c1', 'hla_b_73_c1', 'hla_b_bw4', 'hla_a_bw4',
+       'f_kir2dl1', 'f_kir2dl2_s', 'f_kir2dl2_w', 'f_kir2dl3', 'f_kir3dl1',
+       'f_kir_count', 'f_kir_score']
+
+ikir_data = ikir_data[columns].copy()
+
+data_sci_mgr.data_mgr.insert_df_to_sql_table(ikir_data, columns=columns, table='functional_kir_genotype2', schema='KIR_HLA_STUDY')
+
+print(ikir_data)
+print(ikir_data.columns)"""
+
+
+ikir_data = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
+    table_name='functional_kir_genotype')
+
+filename = 'Data/functional_kir_genotype.csv'
+ikir_data.to_csv(filename)

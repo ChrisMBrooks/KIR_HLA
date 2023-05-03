@@ -137,9 +137,9 @@ def get_baseline(phenos_subset, partition_training_dataset:bool,
     n_repeats = 10
 
     for i in range(n_repeats):
-        np.random.shuffle(phenos_t)
         model.fit(phenos_t, scores_t)
         y_hat = model.predict(phenos_v)
+        np.random.shuffle(y_hat)
         neg_mae = -1*mean_absolute_error(scores_v, y_hat)
         predictions.append(neg_mae)
 
@@ -165,7 +165,7 @@ fs_bs_filter = 2
 
 impute = True
 strategy = 'mean'
-standardise = True
+standardise = False
 normalise = True
 
 h_params = dict()
@@ -176,7 +176,7 @@ h_params['max_samples'] = 0.9
 h_params['bootstrap'] = True
 h_params['min_samples_split'] = 40
 
-source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_3.csv'
+source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_2.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
 output_filename = 'Analysis/RandomForest/rf_final_score_{}.csv'.format(date_str)
 

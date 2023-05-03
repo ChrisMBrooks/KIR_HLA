@@ -1,0 +1,16 @@
+Guess the mean, 2.75 ... -0.2678496656986561
+Simultaneous Tuning ...  -0.237452
+
+Notes ... These scores aren't standardised which is potentially why they don't compare with the other model results ... 
+> In testing this ... I got weird results so maybe not ...
+
+The below was run using tuning params selected from independent grid searches ... 
+data_source    Data/Subsets/clustered_0.95_and_restricted_to_...
+avg_neg_mae                                            -0.236554
+run_id                          f9a69600e48c4bc6b73ba7917c8cf516
+
+data_source    Same Dataset but w/ y_hat shuffled
+avg_neg_mae                                            -0.258327
+run_id                          5ad404a986604ead91a05668fa809eed
+
+8.4% improvement ...
