@@ -1,0 +1,9 @@
+max_depth                  11
+n_estimators               90
+max_features              0.5
+max_samples               0.9
+bootstrap                True
+min_samples_split           5
+neg_mae             -0.201189
+
+Manually Selected by inspection

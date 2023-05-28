@@ -1,0 +1,9 @@
+,0
+baseline,-0.25003309034573457
+avg_neg_mae_tt,-0.18860179130863478
+avg_neg_mae_vv,-0.1993071530538697
+avg_neg_mae_tv,-0.21214330885025992
+data_source,Analysis/RandomForest/02052023_0.95_10/rf_fs_bs_candidate_features_10_02052023_7.csv
+partition_training_dataset,True
+fs_bs_filter,2
+features,"['MFI:469', 'P4:3799', 'P2:8332']"

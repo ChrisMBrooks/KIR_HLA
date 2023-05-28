@@ -50,24 +50,24 @@ fs_bs_filter = 2
 n_jobs = 16 - 1
 n_splits = 5
 num_repeats = 4
-random_state = 42
+random_state = 672
 
 impute = True
-strategy='median'
+strategy='mean'
 standardise = True
 normalise = True 
 
 h_params = dict()
-h_params['max_depth'] = 6
-h_params['n_estimators'] = 300
-h_params['max_features'] = 0.3
+h_params['max_depth'] = 21
+h_params['n_estimators'] = 80
+h_params['max_features'] = 0.4
 h_params['max_samples'] = 0.9
 h_params['bootstrap'] = True
-h_params['min_samples_split'] = 40
+h_params['min_samples_split'] = 8
 
 scoring = 'neg_mean_absolute_error'
 
-source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_7.csv'
+source_filename = 'Analysis/RandomForest/May/15052023_7/rf_fs_bs_candidate_features_100_16052023_7.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
 results_filename = 'Analysis/RandomForest/feature_importance_perm_values_{}.csv'.format(date_str)
 plot_filename = "Analysis/RandomForest/feature_import_box_plot_{}.png".format(date_str)
@@ -142,7 +142,7 @@ print(importances_df)
 
 mean = importances_df.values.mean(axis=0)
 std  = importances_df.values.std(axis=0)
-filter_condition = mean -2*std
+filter_condition = mean -0*std
 indeces = np.where(filter_condition > 0)[0]
 columns = importances_df.columns.values
 columns = [columns[i] for i in indeces]

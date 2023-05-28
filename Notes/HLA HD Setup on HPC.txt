@@ -1,0 +1,13 @@
+# https://www.genome.med.kyoto-u.ac.jp/HLA-HD/wp-content/uploads/2021/09/hlahd-demo.v1.pdf
+conda create env hla_hd
+source activate env hla_hda
+conda install -c conda-forge gxx
+conda install -c bioconda bowtie2
+export PATH=$PATH:/rds/general/user/cmb22/home/anaconda3/pkgs/bowtie2-2.5.1-py310h8d7afc0_0/bin
+sh install.sh
+export PATH=$PATH:/rds/general/user/cmb22/home/hla_hd/Software/hlahd.1.7.0/bin
+
+chmod +x /rds/general/user/cmb22/home/hla_hd/Software/hlahd.1.7.0/bin/hlahd.sh
+
+# Test Script Per Tutorial, 
+hlahd.sh -t 15 -m 100 -f /rds/general/user/cmb22/home/hla_hd/Software/hlahd.1.7.0/freq_data SRR794547_1.fastq SRR794547_1.fastq /rds/general/user/cmb22/home/hla_hd/Software/hlahd.1.7.0/HLA_gene.split.txt /rds/general/user/cmb22/home/hla_hd/Software/hlahd.1.7.0/dictionary SRR794547 .

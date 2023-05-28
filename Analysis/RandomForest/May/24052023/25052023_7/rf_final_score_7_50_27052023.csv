@@ -1,0 +1,22 @@
+,0
+baseline,-0.21153575865889182
+avg_neg_mae_tt,-0.14508699875418657
+avg_neg_mae_vv,-0.15823164515940852
+avg_neg_mae_tv,-0.21025087410593124
+data_source,Analysis/RandomForest/May/24052023/25052023_7/rf_fs_bs_candidate_features_50_25052023_7.csv
+partition_training_dataset,True
+fs_bs_filter,2
+n_splits,4
+n_repeats,5
+random_state,336
+impute,True
+standardise,True
+normalise,True
+strategy,mean
+max_depth,11
+n_estimators,60
+max_features,0.4
+max_samples,0.5
+bootstrap,True
+min_samples_split,10
+features,"['MFI:469', 'P1:22213', 'P4:3799', 'P2:8332', 'P7 Mono:9', 'P4:3231', 'MFI:146', 'P7 Mono:5853', 'P5 gd:1966', 'MFI:149', 'P1:9862', 'P2:17750', 'P4:5520', 'P2:22065']"

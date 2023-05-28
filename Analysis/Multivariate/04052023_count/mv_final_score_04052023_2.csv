@@ -1,0 +1,18 @@
+,0
+baseline,-0.16772327895101774
+neg_mae_tt,-0.14908242772347274
+neg_mae_vv,-0.14383450191241973
+neg_mae_tv,-0.15083445498191012
+data_source,Analysis/Multivariate/04052023_count/multivar_qc_fs_bs_candidate_features_04052023.csv
+dependent_var,kir_count
+fs_bs_filter,2
+partition_training_dataset,True
+scoring,neg_mean_absolute_error
+impute,True
+strategy,mean
+standardise,True
+normalise,True
+n_splits,4
+n_repeats,5
+random_state,42
+features,"['P4:5530', 'P6:76', 'P4:3645', 'P7 Mono:3386', 'P7 Mono:566', 'MFI:516', 'P1:9993']"

@@ -1,0 +1,13 @@
+,0
+data_source,Analysis/ElasticNet/03052023_count/en_feature_coefs_03052023_4.csv
+dependent_var,kir_count
+flag,fs_bs
+tolerance,
+scoring,neg_mean_absolute_error
+impute,True
+strategy,mean
+standardise,False
+normalise,False
+n_splits,4
+n_repeats,10
+random_state,42

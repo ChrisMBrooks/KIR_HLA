@@ -1,0 +1,23 @@
+,0
+data_source,Data/Subsets/clustered_0.95_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv
+dependent_var,kir_count
+impute,True
+strategy,mean
+standardise,True
+normalise,True
+n_splits,5
+n_repeats,4
+random_state_1,42
+random_state_2,21
+alpha_range,[0.001 0.006 0.011 0.016 0.021 0.026 0.031]
+l1_ratio_range,[0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+best_l1_ratio,0.5000000000000001
+best_alpha,0.011
+best_fit_mae,-0.15926310916238479
+avg_neg_mae,-0.1601878430567089
+avg_non_zero_coeff_count,38
+l1_ratio,0.5000000000000001
+alpha,0.011
+candidates,"['P7:23', 'P7:186', 'P7 Mono:566', 'P7 Mono:4455', 'P7 Mono:4196', 'P7 Mono:4115', 'P7 Mono:3386', 'P6:76', 'P5 gd:1855', 'P5 CD8:136', 'P5 CD8:109', 'P4:6227', 'P4:5539', 'P4:5530', 'P4:3729', 'P4:3645', 'P4:3639', 'P3:159', 'P2:6381', 'P2:5236', 'P2:23259', 'P2:11314', 'P2:11233', 'P1:9993', 'P1:7721', 'P1:24560', 'P1:24559', 'MFI:8', 'MFI:79', 'MFI:76', 'MFI:658', 'MFI:59', 'MFI:516', 'MFI:472', 'MFI:410', 'MFI:238', 'MFI:224', 'MFI:103']"
+run_time,210.09650778770447
+run_id,95bb7fb4ff6a4a44ab524959849a91ae

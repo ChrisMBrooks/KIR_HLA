@@ -1,0 +1,151 @@
+,label,forward_selected,backward_selected
+0,P4:3799,True,True
+1,P1:22213,True,False
+2,P5 gd:1966,True,True
+3,P5 CD8:74,True,True
+4,MFI:469,True,True
+5,P1:20790,True,True
+6,P3:5417,False,False
+7,MFI:146,True,True
+8,P4:5572,False,False
+9,P7 Mono:4045,True,False
+10,P1:5949,False,False
+11,MFI:149,True,True
+12,P1:22240,True,True
+13,P4:3706,True,False
+14,P1:22834,True,True
+15,P1:22913,True,True
+16,P6 earlyB:25,False,True
+17,P1:495,True,True
+18,MFI:652,False,False
+19,MFI:144,False,True
+20,P1:7363,True,True
+21,P7 Mono:6166,True,True
+22,P4:3229,True,False
+23,P1:9589,True,False
+24,P1:6709,True,True
+25,MFI:27,False,True
+26,MFI:215,False,True
+27,P1:22832,False,True
+28,P1:20030,False,True
+29,P3:5694,False,True
+30,P7 Mono:4162,False,True
+31,P1:9862,True,True
+32,P4:3562,True,True
+33,P2:23833,False,False
+34,P6:153,False,True
+35,P4:3634,False,True
+36,P7 Mono:5853,False,False
+37,P6 earlyB:135,True,True
+38,MFI:224,False,False
+39,P5 gd:1778,True,False
+40,P7 Mono:6556,False,False
+41,P5 gd:826,False,False
+42,P4:5481,False,False
+43,P7:132,True,True
+44,P4:5281,False,False
+45,P2:6633,False,True
+46,P4:3718,False,True
+47,P3:5903,False,False
+48,P1:11384,True,True
+49,P5 gd:1135,False,False
+50,P1:6551,True,True
+51,P3:5444,False,False
+52,P1:6030,False,False
+53,P5 gd:308,False,True
+54,P4:3225,False,False
+55,P5 gd:832,False,True
+56,P3:5414,False,True
+57,P3:4627,True,False
+58,P7 Mono:4975,True,True
+59,P5 gd:634,True,False
+60,P2:9216,True,True
+61,P1:6021,True,True
+62,P2:7298,True,False
+63,P7 Mono:6410,False,False
+64,P1:9172,False,True
+65,P7 Mono:5918,False,False
+66,P7 Mono:4205,False,False
+67,P6 earlyB:90,False,True
+68,P2:21187,True,False
+69,P4:5777,False,False
+70,P7 Mono:4911,False,False
+71,P6 earlyB:126,True,True
+72,P7 Mono:1890,True,True
+73,P7:23,True,False
+74,P1:22915,False,False
+75,P7 Mono:5467,True,False
+76,P2:8128,False,False
+77,P4:3333,True,True
+78,P2:1844,True,False
+79,MFI:656,False,False
+80,P5 gd:1727,True,True
+81,P1:20789,False,False
+82,P6 earlyB:96,True,True
+83,P1:9908,True,True
+84,P5 gd:451,True,True
+85,P2:11295,True,True
+86,P6:295,True,False
+87,P4:3472,False,True
+88,P1:23356,False,False
+89,P2:9262,True,False
+90,P2:4840,True,True
+91,P2:8981,True,True
+92,P1:22700,False,False
+93,P6:90,True,True
+94,P2:9961,True,False
+95,P1:1863,True,True
+96,P7:57,True,False
+97,P6:9,False,True
+98,P2:10896,False,False
+99,P6:76,False,False
+100,P5 gd:1136,False,False
+101,P1:11292,False,False
+102,P7 Mono:5493,True,True
+103,MFI:68,True,False
+104,P5 gd:297,False,False
+105,P1:20820,False,True
+106,P7 Mono:61,True,True
+107,P4:3477,False,False
+108,P4:77,False,False
+109,P5 gd:632,True,False
+110,P1:4428,True,True
+111,P2:10454,False,False
+112,P5 gd:1413,False,False
+113,MFI:22,True,True
+114,P4:3231,False,True
+115,P5 gd:224,False,True
+116,P4:6239,False,False
+117,P6 earlyB:192,True,False
+118,P2:12680,True,False
+119,P1:9841,False,False
+120,P4:5571,False,False
+121,P7:44,True,True
+122,P1:22943,False,True
+123,P5 gd:370,False,True
+124,P5 gd:1881,False,True
+125,P1:20126,True,False
+126,P1:9910,False,False
+127,P1:12345,True,True
+128,P7 Mono:1780,True,True
+129,MFI:488,True,True
+130,P2:5243,True,True
+131,P1:24822,False,False
+132,P7 Mono:4124,False,False
+133,P4:6235,False,False
+134,P1:7608,False,False
+135,P2:10861,False,False
+136,P5 gd:1658,False,True
+137,P2:7301,True,False
+138,P2:25264,True,True
+139,P7 Mono:3432,False,False
+140,P5 gd:401,False,False
+141,P1:6133,True,True
+142,P6 earlyB:68,True,True
+143,P5 gd:669,False,False
+144,P4:5373,True,True
+145,P7:125,True,False
+146,P6 earlyB:16,False,False
+147,P5 gd:56,True,True
+148,P2:12608,True,False
+149,P5 gd:562,True,False

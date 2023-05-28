@@ -1,0 +1,501 @@
+,label,forward_selected,backward_selected
+0,P7 Mono:4045,True,False
+1,P1:22913,True,False
+2,MFI:469,True,True
+3,P1:22213,True,False
+4,P2:19837,True,False
+5,P4:3799,True,True
+6,P2:8332,True,True
+7,P7 Mono:9,True,False
+8,P3:5417,True,False
+9,P7 Mono:4162,False,False
+10,P7 Mono:6487,True,False
+11,P4:3231,False,False
+12,MFI:146,False,False
+13,P2:25263,True,False
+14,P6 earlyB:25,True,False
+15,P3:5694,True,False
+16,P5 gd:1778,True,True
+17,P7 Mono:6296,True,False
+18,P7 Mono:5853,True,True
+19,MFI:22,False,False
+20,MFI:91,False,True
+21,P6:237,True,True
+22,P7 Mono:5918,False,False
+23,P5 gd:1966,True,True
+24,P1:20790,False,False
+25,P2:1844,False,True
+26,MFI:149,True,True
+27,P1:20820,False,False
+28,P1:20030,True,False
+29,P1:9862,True,True
+30,P6 earlyB:90,True,True
+31,P4:3472,False,False
+32,P1:10573,True,False
+33,P5 gd:58,True,True
+34,P2:17750,True,True
+35,P1:6030,True,False
+36,P4:3718,True,True
+37,P2:18213,False,False
+38,P1:22915,False,False
+39,P2:23133,False,True
+40,P7:31,False,False
+41,P1:25133,True,False
+42,P7:44,True,True
+43,MFI:68,True,True
+44,P7:137,True,False
+45,MFI:488,True,False
+46,P4:5520,True,True
+47,P7 Mono:4135,True,True
+48,P2:22065,True,True
+49,P7 Mono:3476,True,True
+50,P4:3234,False,False
+51,P2:6633,True,True
+52,P7:57,True,False
+53,P4:5685,True,False
+54,P1:12372,True,True
+55,MFI:236,True,True
+56,P2:218,True,True
+57,P2:9216,True,False
+58,P1:9908,True,True
+59,P2:25228,False,False
+60,P1:1234,True,True
+61,P1:5440,False,True
+62,P5 gd:451,True,True
+63,P5 gd:853,False,False
+64,P4:5325,True,True
+65,P1:10222,True,True
+66,P5 gd:224,True,False
+67,P2:9008,True,False
+68,P1:5974,False,False
+69,P1:495,True,True
+70,MFI:503,False,False
+71,P1:2124,True,True
+72,P1:22834,True,True
+73,P4:3463,False,True
+74,P5 gd:596,True,True
+75,P2:154,False,False
+76,P1:16464,False,False
+77,P6 earlyB:192,False,True
+78,P3:262,False,True
+79,P4:3477,False,False
+80,P2:16902,False,False
+81,P4:4823,True,True
+82,P2:15398,True,False
+83,P3:5452,False,True
+84,P1:21492,False,False
+85,P2:9961,False,True
+86,P2:24517,True,False
+87,P5 gd:632,True,True
+88,P1:20365,True,True
+89,P6 earlyB:241,True,False
+90,P2:47,False,True
+91,Lin:48,True,True
+92,P2:17432,True,False
+93,P2:20911,True,True
+94,P2:9,False,True
+95,P2:23914,True,False
+96,P2:11259,False,True
+97,P1:20793,False,True
+98,P5 gd:1118,False,False
+99,P2:17747,True,True
+100,MFI:224,False,False
+101,P1:9600,False,False
+102,P5 gd:308,True,True
+103,P2:3693,True,True
+104,P5 gd:47,False,False
+105,P7 Mono:5557,False,True
+106,P3:7882,True,False
+107,P7 Mono:4124,True,True
+108,P1:11785,False,True
+109,P7 Mono:1780,True,False
+110,P5 gd:549,True,False
+111,P2:14727,False,False
+112,P5 gd:253,False,True
+113,P1:9628,True,True
+114,P3:5693,True,False
+115,P2:2145,True,True
+116,P2:21187,True,False
+117,P1:1863,True,False
+118,P7 Mono:6556,True,True
+119,P2:2168,False,True
+120,P7 Mono:1890,True,True
+121,P2:4840,False,True
+122,P5 gd:826,False,False
+123,P2:7082,False,True
+124,P5 gd:562,False,False
+125,P1:7515,False,False
+126,P1:6515,True,True
+127,P1:4004,True,False
+128,P2:12855,True,False
+129,P2:17570,False,False
+130,P7:131,False,False
+131,P1:16899,True,True
+132,P1:17633,False,True
+133,P1:9838,False,False
+134,P2:1736,False,True
+135,P1:8442,True,False
+136,P3:3836,False,True
+137,P1:263,True,True
+138,P3:935,True,True
+139,P7 Mono:2771,True,False
+140,P3:5696,False,True
+141,P1:259,False,False
+142,P7 Mono:5412,True,True
+143,P4:5530,False,False
+144,P5 gd:1895,True,True
+145,P4:3706,True,True
+146,P1:8791,False,False
+147,P1:9586,False,True
+148,P5 gd:1786,True,True
+149,P6 earlyB:57,False,True
+150,P1:20819,False,True
+151,P1:7773,False,False
+152,P1:19929,False,False
+153,P1:19925,True,True
+154,P1:19765,True,False
+155,P5 gd:1894,True,True
+156,P2:14987,False,True
+157,P1:8039,False,False
+158,P4:5571,False,True
+159,P1:7951,False,True
+160,MFI:433,False,False
+161,P6 earlyB:211,False,False
+162,P5 gd:1271,False,False
+163,P2:8607,False,True
+164,P1:1233,False,False
+165,P2:9319,True,True
+166,P3:5698,False,False
+167,MFI:27,False,True
+168,P2:17666,True,False
+169,P2:25209,True,True
+170,P5 gd:1413,False,False
+171,P2:41,False,True
+172,P1:733,False,False
+173,P1:22930,True,False
+174,P5 gd:823,False,False
+175,MFI:152,False,False
+176,P2:25482,False,True
+177,P2:17675,False,True
+178,P6:231,False,True
+179,P3:110,False,False
+180,P1:20789,False,True
+181,P1:6130,True,True
+182,MFI:280,False,False
+183,P1:19198,False,True
+184,P1:7372,False,True
+185,P7 Mono:5638,False,False
+186,P1:5938,False,True
+187,P3:5903,False,True
+188,P7 Mono:6260,False,True
+189,P1:22240,True,False
+190,P1:22916,False,False
+191,P1:15046,True,True
+192,P1:9999,False,False
+193,P1:17375,True,False
+194,P2:23164,False,True
+195,P1:9560,True,False
+196,P1:21497,False,True
+197,P2:12528,False,False
+198,P2:17305,True,True
+199,P5 gd:548,False,True
+200,P1:10329,True,False
+201,P2:13384,True,False
+202,P2:21113,True,False
+203,P1:22471,True,True
+204,P1:25902,True,False
+205,P3:7276,False,True
+206,P7 Mono:5863,True,True
+207,P5 gd:1780,True,False
+208,MFI:92,False,False
+209,P5 NKT:308,True,False
+210,P1:6551,True,True
+211,P5 CD8:115,False,False
+212,P3:2513,True,False
+213,P7 Mono:5599,True,True
+214,P1:4594,True,False
+215,P1:9707,True,True
+216,P1:14581,True,True
+217,P4:3306,False,False
+218,P2:5903,True,False
+219,P1:24822,True,True
+220,P5 gd:493,True,True
+221,P1:22132,True,False
+222,P1:3175,False,False
+223,P1:2382,True,True
+224,P5 gd:936,True,False
+225,P4:5563,False,False
+226,P2:25787,True,True
+227,MFI:449,True,True
+228,P2:708,True,False
+229,P2:16734,False,False
+230,P1:19607,False,False
+231,MFI:511,True,False
+232,P1:22214,False,True
+233,P1:11140,False,True
+234,P2:517,True,True
+235,P2:17879,True,False
+236,P1:25279,False,True
+237,P1:13229,False,False
+238,MFI:421,False,False
+239,P2:14885,False,True
+240,P1:3284,False,False
+241,P3:595,False,True
+242,P4:3486,False,True
+243,P2:23103,False,False
+244,P7 Mono:6254,False,True
+245,P7:84,True,True
+246,P5 gd:835,False,False
+247,P2:8128,False,True
+248,MFI:144,False,True
+249,P7 Mono:5523,False,True
+250,P1:24919,False,False
+251,P7 Mono:4857,False,False
+252,MFI:451,True,True
+253,P6 earlyB:212,False,False
+254,P1:11291,True,True
+255,P1:9619,True,False
+256,P6:295,False,False
+257,P4:4162,False,True
+258,P1:9697,True,True
+259,P7 Mono:653,True,False
+260,P5 gd:1121,True,True
+261,P1:12237,True,True
+262,P1:22198,False,False
+263,MFI:306,False,True
+264,P3:5453,True,False
+265,P1:19524,True,True
+266,P3:2530,False,True
+267,P2:23670,True,True
+268,P6:95,False,True
+269,P7:108,False,False
+270,P4:77,False,False
+271,P7 Mono:6426,False,False
+272,P3:7728,False,False
+273,MFI:399,False,True
+274,P2:11303,False,False
+275,P2:4429,False,False
+276,P7 Mono:4848,False,True
+277,P5 gd:832,False,False
+278,P2:2742,False,True
+279,P1:19237,False,False
+280,P1:13626,True,True
+281,P7 Mono:5197,True,True
+282,P1:10106,False,False
+283,P2:22713,False,False
+284,MFI:415,False,False
+285,P7:56,False,False
+286,P2:21901,True,True
+287,P2:9886,False,True
+288,P3:5414,False,True
+289,P1:11384,False,False
+290,MFI:475,False,False
+291,P7 Mono:6057,False,False
+292,P2:10180,False,False
+293,P2:21193,True,False
+294,P3:7285,False,False
+295,P1:20807,False,True
+296,P2:17756,True,True
+297,P7 Mono:2111,True,False
+298,P2:2680,True,False
+299,P2:5045,True,True
+300,P1:26003,True,False
+301,P2:7231,False,False
+302,P7 Mono:2068,False,True
+303,P1:22237,True,False
+304,P1:6061,False,False
+305,P1:16779,True,True
+306,P3:98,False,True
+307,P1:7371,False,True
+308,P4:3556,False,True
+309,P7 Mono:2080,False,False
+310,MFI:242,False,False
+311,P2:22660,False,False
+312,P5 gd:128,False,False
+313,P5 gd:1509,True,True
+314,P2:2183,False,False
+315,P7 Mono:948,False,True
+316,P3:5695,False,False
+317,P5 gd:1481,True,True
+318,P2:15598,True,False
+319,MFI:238,True,False
+320,P3:688,True,True
+321,P1:7114,False,True
+322,P3:7648,True,False
+323,P1:22859,False,False
+324,P2:16791,True,False
+325,P5 gd:440,False,True
+326,P1:9841,False,False
+327,P4:5572,False,False
+328,P2:9702,True,True
+329,P5 gd:1253,True,False
+330,P1:16137,True,False
+331,P7:132,True,True
+332,P4:949,True,False
+333,P2:856,True,False
+334,P1:9589,True,False
+335,P1:7750,False,False
+336,P6 earlyB:28,False,True
+337,P2:19580,True,True
+338,P1:11292,False,True
+339,P3:857,False,False
+340,P5 gd:2065,True,True
+341,P4:788,False,False
+342,P1:5989,True,True
+343,P4:716,False,True
+344,P1:19716,True,True
+345,P1:13347,False,True
+346,P2:13263,False,True
+347,P2:21,False,True
+348,P6:69,False,False
+349,P5 gd:634,True,True
+350,P7:219,False,False
+351,P2:19165,True,True
+352,P1:8972,False,True
+353,P1:24153,False,False
+354,P2:9722,False,False
+355,P1:19710,False,True
+356,P3:8390,True,True
+357,P2:25220,False,True
+358,P1:5376,False,True
+359,P1:8643,False,True
+360,P2:17702,True,False
+361,P2:25264,True,True
+362,MFI:348,True,True
+363,P1:26206,True,True
+364,P1:19505,True,True
+365,P1:5949,True,True
+366,P1:11059,True,False
+367,P1:9861,True,True
+368,P5 CD8:74,False,True
+369,P7 Mono:1850,False,False
+370,P6 earlyB:37,False,True
+371,P5 gd:842,True,True
+372,P1:14822,False,True
+373,P2:19526,True,True
+374,MFI:231,False,False
+375,P2:19822,True,True
+376,P2:20263,False,True
+377,P5 gd:669,False,True
+378,P2:15280,False,False
+379,P1:25234,False,True
+380,P3:389,False,False
+381,P4:728,False,False
+382,P2:23830,False,True
+383,P2:23141,False,False
+384,P7 Mono:6524,True,True
+385,P2:17000,False,True
+386,P5 gd:489,False,False
+387,P1:19229,False,True
+388,P2:19831,True,True
+389,P3:4936,True,False
+390,P1:235,False,True
+391,P1:23185,True,True
+392,P7 Mono:6433,True,True
+393,P4:6227,False,False
+394,P3:6590,False,True
+395,P2:21136,True,False
+396,P2:13334,False,True
+397,P1:9381,False,True
+398,P6:5,False,False
+399,P2:7301,False,True
+400,P3:1167,True,True
+401,P5 CD8:34,True,True
+402,P1:13180,False,True
+403,P1:9917,True,True
+404,P1:1477,True,False
+405,P1:17587,True,True
+406,P2:16905,False,True
+407,P2:604,True,False
+408,P7:22,False,True
+409,P7 Mono:3621,True,True
+410,P1:11762,False,True
+411,MFI:656,False,True
+412,P3:6525,True,True
+413,P2:8665,False,True
+414,P4:6235,False,False
+415,P5 gd:80,False,True
+416,P1:691,True,True
+417,P1:17922,False,False
+418,P1:25308,False,True
+419,P1:11312,True,True
+420,P1:24156,True,True
+421,P3:7894,True,False
+422,Lin:28,False,False
+423,P4:3395,False,False
+424,P2:10170,False,False
+425,P5 gd:1757,True,True
+426,P2:19668,True,True
+427,P7 Mono:4099,True,True
+428,P1:4092,True,False
+429,P1:11417,False,True
+430,P3:5993,True,False
+431,P5 gd:1625,True,True
+432,P5 CD8:142,False,False
+433,P2:19867,True,True
+434,MFI:216,True,False
+435,P1:6113,True,False
+436,P2:307,True,False
+437,P3:7127,True,False
+438,P4:4754,True,True
+439,MFI:384,True,True
+440,P1:6708,True,True
+441,P3:4334,True,False
+442,P1:23183,False,False
+443,P2:6420,True,False
+444,P2:25460,True,False
+445,P1:13575,True,False
+446,P5 gd:1667,True,False
+447,P2:8981,True,True
+448,P3:7892,True,False
+449,P1:17624,False,False
+450,P1:7362,True,False
+451,P5 gd:1965,False,False
+452,P4:5379,False,False
+453,MFI:24,True,True
+454,P2:17107,False,True
+455,P7:238,False,False
+456,P3:8396,True,False
+457,P2:11410,True,False
+458,P2:12828,True,True
+459,P7 Mono:964,False,False
+460,P1:5664,True,True
+461,P3:7748,True,False
+462,P2:16928,False,False
+463,P1:10293,True,True
+464,P4:3793,True,False
+465,P2:13323,True,False
+466,P1:15885,True,True
+467,MFI:294,True,True
+468,P5 gd:1658,True,False
+469,P2:18706,False,False
+470,P1:56,True,True
+471,P5 gd:450,False,True
+472,P2:20190,False,False
+473,P7 Mono:6233,True,True
+474,P6:281,False,False
+475,P2:11104,True,False
+476,P1:11996,True,True
+477,P1:5374,True,True
+478,P1:17615,False,True
+479,P5 gd:488,False,False
+480,P2:23092,False,False
+481,P2:22521,False,False
+482,P2:14925,True,False
+483,P1:17480,True,False
+484,P4:5538,False,False
+485,P1:20798,False,False
+486,P3:3794,True,False
+487,P1:1800,False,False
+488,P2:22752,True,True
+489,MFI:574,True,False
+490,P2:6662,False,False
+491,P7 Mono:5139,False,False
+492,P2:25770,True,False
+493,P7:221,False,True
+494,P4:483,False,False
+495,P5 gd:56,True,False
+496,P1:25710,True,False
+497,P7 Mono:6123,True,False
+498,P1:9662,False,False
+499,P1:6101,True,False

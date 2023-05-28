@@ -1,0 +1,101 @@
+,label,forward_selected,backward_selected
+0,MFI:27,True,False
+1,P4:3799,True,True
+2,MFI:68,True,False
+3,P2:54,True,True
+4,P1:22213,True,True
+5,P5 gd:1136,True,True
+6,P3:5903,False,False
+7,P5 gd:1966,True,True
+8,P2:10454,True,False
+9,P7 Mono:4045,True,False
+10,P4:5777,True,False
+11,P1:9586,True,False
+12,P4:6238,False,False
+13,P7:240,True,True
+14,MFI:469,True,True
+15,P4:3556,False,False
+16,P1:25659,False,False
+17,P1:9862,True,False
+18,P7 Mono:6426,True,True
+19,P6:77,False,False
+20,P1:24153,True,True
+21,P7 Mono:4162,True,True
+22,P4:6229,True,False
+23,P7 Mono:5608,True,False
+24,P5 gd:1778,True,True
+25,MFI:149,True,True
+26,P1:22132,True,True
+27,P2:20322,False,False
+28,P2:6633,False,False
+29,P5 gd:1118,True,True
+30,P7 Mono:6556,False,True
+31,P7 Mono:5918,True,True
+32,MFI:146,False,False
+33,P5 gd:1390,False,True
+34,P1:23174,True,False
+35,P1:9600,False,False
+36,P7 Mono:4124,False,False
+37,P6:28,True,False
+38,P2:21187,True,True
+39,P4:3225,False,False
+40,P1:5949,False,True
+41,P5 gd:1509,True,True
+42,P1:3284,True,True
+43,MFI:87,False,False
+44,P5 gd:1786,False,True
+45,MFI:656,False,False
+46,P1:7966,False,False
+47,P5 CD8:56,False,False
+48,P6 earlyB:187,False,True
+49,P1:10573,True,True
+50,P4:5530,True,False
+51,P1:7741,False,True
+52,P2:925,False,True
+53,MFI:188,False,False
+54,P4:3706,False,False
+55,P7 Mono:948,False,True
+56,P2:957,True,False
+57,P1:7608,False,False
+58,P1:6708,True,True
+59,P6:289,False,False
+60,P1:25736,False,True
+61,P2:25560,True,True
+62,P7:217,True,True
+63,P1:11020,False,True
+64,P2:22065,True,True
+65,P7 Mono:6245,False,False
+66,P1:25521,False,False
+67,P7 Mono:977,False,False
+68,P1:20789,True,True
+69,P4:3333,True,True
+70,P1:387,True,True
+71,P4:3393,False,False
+72,P1:495,True,True
+73,P1:22484,True,False
+74,P4:3231,True,False
+75,P2:9007,True,True
+76,P1:3730,False,False
+77,P3:7494,False,True
+78,P5 gd:224,True,True
+79,P3:7746,False,False
+80,P4:5521,False,True
+81,P7 Mono:6260,False,True
+82,P1:22943,False,False
+83,MFI:21,False,True
+84,P2:23012,False,False
+85,P2:4954,False,False
+86,P4:6239,False,False
+87,P2:9667,False,True
+88,P1:8439,False,False
+89,P4:3229,False,True
+90,P3:7908,True,True
+91,P4:3234,False,False
+92,P4:3243,True,False
+93,P1:22471,True,True
+94,MFI:248,True,True
+95,P7:15,False,True
+96,P1:843,True,False
+97,P7 Mono:3409,True,True
+98,P1:20126,False,False
+99,P1:13229,False,False

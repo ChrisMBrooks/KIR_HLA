@@ -1,12 +1,1 @@
-,label,forward_selected,backward_selected
-0,MFI:469,True,True
-1,P1:12669,True,True
-2,P1:22210,True,True
-3,P1:22453,False,False
-4,P4:3052,False,True
-5,P4:5260,False,False
-6,P4:6212,True,False
-7,P4:6227,False,True
-8,P5 gd:393,False,False
-9,P5 gd:523,False,False
-10,P7:107,True,False
+,label,forward_selected,backward_selected,0,MFI:469,True,True,1,P1:12669,True,True,2,P1:22210,True,True,3,P1:22453,False,False,4,P4:3052,False,True,5,P4:5260,False,False,6,P4:6212,True,False,7,P4:6227,False,True,8,P5 gd:393,False,False,9,P5 gd:523,False,False,10,P7:107,True,False,

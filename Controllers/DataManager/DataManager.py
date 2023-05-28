@@ -246,8 +246,8 @@ class DataManager():
         scores_df_v = scores.iloc[test_indeces, :]
         return phenos_df_t, scores_df_t, phenos_df_v, scores_df_v
 
-    def reshape(self, phenos:pd.DataFrame, scores:pd.DataFrame):
-        scores = scores['f_kir_score'].values.reshape(-1,1)
+    def reshape(self, phenos:pd.DataFrame, scores:pd.DataFrame, dependent_var = 'f_kir_score'):
+        scores = scores[dependent_var].values.reshape(-1,1)
         if len(phenos.values.shape) == 1:
             phenos = phenos.values.reshape(-1,1)
         else:

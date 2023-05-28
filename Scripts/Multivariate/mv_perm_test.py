@@ -15,10 +15,11 @@ from Controllers.DataScienceManager import DataScienceManager as dsm
 def preprocess_for_validation(
         phenos_t:pd.DataFrame, scores_t:pd.DataFrame, 
         phenos_v:pd.DataFrame, scores_v:pd.DataFrame,
+        dependent_var:str,
         impute, strategy, standardise, normalise 
     ):
-    phenos_t, scores_t = data_sci_mgr.data_mgr.reshape(phenos_t, scores_t)
-    phenos_v, scores_v = data_sci_mgr.data_mgr.reshape(phenos_v, scores_v)
+    phenos_t, scores_t = data_sci_mgr.data_mgr.reshape(phenos_t, scores_t, dependent_var= dependent_var)
+    phenos_v, scores_v = data_sci_mgr.data_mgr.reshape(phenos_v, scores_v, dependent_var= dependent_var)
 
     phenos_t, scores_t, phenos_v, scores_v = data_sci_mgr.data_mgr.preprocess_data_v(
         X_t=phenos_t, Y_t=scores_t, X_v=phenos_v, Y_v=scores_v,
@@ -44,16 +45,21 @@ data_sci_mgr = dsm.DataScienceManager(
 )
 
 #Set Configuration Params
+dependent_var = 'kir_count'
+fs_bs_filter = 2
 partition_training_dataset = True
+scoring = 'neg_mean_absolute_error'
+
 num_repeats = 10
 n_jobs = 16 - 1
 random_state = 42
 n_splits = 4
 impute = True
-strategy='median'
+strategy='mean'
 standardise = True
 normalise = True 
-source_filename = 'Analysis/Multivariate/11042023_c_rc3/multivar_qc_fs_bs_candidate_features_11042023.csv'
+
+source_filename = 'Analysis/Multivariate/04052023_count/multivar_qc_fs_bs_candidate_features_04052023.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
 results_filename = 'Analysis/Multivariate/feature_importance_perm_values_{}.csv'.format(date_str)
 plot_filename = "Analysis/Multivariate/feature_import_box_plot_{}.png".format(date_str)
@@ -61,7 +67,7 @@ plot_filename = "Analysis/Multivariate/feature_import_box_plot_{}.png".format(da
 #Retrieve Data
 phenos_subset = pd.read_csv(source_filename, index_col=0)
 indeces = phenos_subset.values[:,1:3].sum(axis=1)
-indeces = np.where(indeces >= 1)
+indeces = np.where(indeces >= fs_bs_filter)
 phenos_subset = list(phenos_subset.iloc[indeces]['label'].values)
 
 scores_t = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='training')
@@ -80,8 +86,12 @@ if partition_training_dataset:
 
 # Massage Data
 phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
-    phenos_t, scores_t, phenos_v, scores_v, impute, strategy, 
-    standardise, normalise
+    phenos_t, scores_t, phenos_v, scores_v, 
+    dependent_var = dependent_var,
+    impute = impute, 
+    strategy = strategy, 
+    standardise = standardise, 
+    normalise = normalise
 )
 
 # Fit the Model
@@ -90,7 +100,7 @@ fitted_model = model.fit(phenos_t, scores_t)
 
 # Run Permutation Tests
 results = permutation_importance(fitted_model, phenos_v, scores_v, n_repeats=num_repeats,
-    random_state=random_state, scoring ='neg_mean_absolute_error', n_jobs=n_jobs
+    random_state=random_state, scoring = scoring, n_jobs=n_jobs
 )
 
 # Format Results

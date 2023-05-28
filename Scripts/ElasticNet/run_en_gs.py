@@ -28,7 +28,7 @@ data_sci_mgr = dsm.DataScienceManager(
 )
 
 # Declare Config Params
-dependent_var = 'f_kir_score'
+dependent_var = 'kir_count'
 
 impute = True
 standardise = True
@@ -39,32 +39,32 @@ n_jobs = 16 - 1
 n_splits = 5
 n_repeats = 4
 random_state_1 = 42
-random_state_2 = 42
+random_state_2 = 21
 
 scoring = 'neg_mean_absolute_error'
 
 hyper_params_grid = dict()
-l1_ratio_step = 0.01
-l1_ratio_min = 0.2
-l1_ratio_max = 0.99 + l1_ratio_step
+l1_ratio_step = 0.005
+l1_ratio_min = 0.001
+l1_ratio_max = 0.9 + l1_ratio_step
 
 hyper_params_grid['l1_ratio'] = np.arange(
     l1_ratio_min, l1_ratio_max, l1_ratio_step
 )
 
-alpha_step = 0.002
+alpha_step = 0.001
 alpha_min = 0.001
-alpha_max = 0.06 + alpha_step
+alpha_max = 0.04 + alpha_step
 
 hyper_params_grid['alpha'] = np.arange(
     alpha_min, alpha_max, alpha_step
 )
-cut_off = 10
-source_filename = "Data/Subsets/na_filtered_phenos_less_thn_{}_zeros.csv".format(str(cut_off))
+
+source_filename = "Data/Subsets/clustered_0.95_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv"
 date_str = data_sci_mgr.data_mgr.get_date_str()
-feature_coefs_filename = 'Analysis/ElasticNet/en_feature_coefs_{}.txt'.format(date_str)
+feature_coefs_filename = 'Analysis/ElasticNet/en_feature_coefs_{}.csv'.format(date_str)
 output_filename = 'Analysis/ElasticNet/en_output_summary_results_{}.csv'.format(date_str)
-gs_filename = 'Analysis/ElasticNet/en_grid_search_details_{}.csv'.format(date_str)
+gs_details_filename = 'Analysis/ElasticNet/en_grid_search_details_{}.csv'.format(date_str)
 plot_filename = 'Analysis/ElasticNet/en_grid_search_heat_map_{}.png'.format(date_str)
 # Pull Data from DB
 
@@ -124,7 +124,7 @@ grid_results = [[h_params[i]['alpha'], h_params[i]['l1_ratio'], neg_mae_scores[i
            for i in range(0, len(h_params),1)]
 
 grid_results = pd.DataFrame(grid_results, columns=['alpha', 'l1_ratio', 'mae'])
-grid_results.to_csv(gs_filename)
+grid_results.to_csv(gs_details_filename)
 
 sns.relplot(
     data=grid_results, 

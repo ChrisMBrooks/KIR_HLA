@@ -1,0 +1,13 @@
+module load R/3.6.3
+module load bowtie2
+module load samtools/1.7
+module load bcftools/1.7
+
+conda install -c conda-forge r-base=3.6 r-data.table
+conda install -c conda-forge r-base=3.6 r-stringr
+conda install -c conda-forge r-base=3.6 r-pryr
+conda install -c conda-forge r-base=3.6 r-plotly
+conda install -c r r-base=3.6 r-gtools
+conda install -c conda-forge r-base=3.6 r-r.utils
+conda install -c r r-base=3.6 rstudio
+conda install -c conda-forge r-base=3.6 r-zip

@@ -1,0 +1,10 @@
+max_depth                  11
+n_estimators               40
+max_features              0.4
+max_samples               0.5
+bootstrap                True
+min_samples_split          12
+neg_mae             -0.194173
+Name: 90418, dtype: object
+
+Params Chosen Manually by trend inspection. 

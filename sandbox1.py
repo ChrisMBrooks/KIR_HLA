@@ -1,4 +1,5 @@
 
+import os
 import math, random
 import numpy as np
 import seaborn as sns
@@ -593,8 +594,210 @@ print(ikir_data)
 print(ikir_data.columns)"""
 
 
-ikir_data = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
-    table_name='functional_kir_genotype')
+"""phenos_subset = ['P4:5530', 'P6:76', 'P4:3645', 'P7 Mono:3386', 'P7 Mono:566', 'MFI:516', 'P1:9993']
+phenos_subset = pd.DataFrame(phenos_subset, columns=['phenotype_id'])
 
-filename = 'Data/functional_kir_genotype.csv'
-ikir_data.to_csv(filename)
+phenos_data = data_sci_mgr.sql.read_table_into_data_frame(schema_name='KIR_HLA_STUDY', 
+    table_name='immunophenotype_definitions')
+
+phenos_subset = phenos_data.merge(phenos_subset, how='right', on='phenotype_id')
+
+filename = '/Users/chrismbrooks/Downloads/ikir_count_candidaes_04052023.csv'
+phenos_subset.to_csv(filename)
+print(phenos_subset)"""
+
+"""kir_atts_to_plot = ['kir2dl1', 'kir2dl2', 'kir2dl3', 'kir3dl1', 'kir_count', \
+                    'f_kir2dl1', 'f_kir2dl2_s', 'f_kir2dl2_w', 'f_kir2dl3', 'f_kir3dl1', 'f_kir_score']
+
+scores_df_t = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='training')
+scores_df_v = data_sci_mgr.data_mgr.features(fill_na=False, fill_na_value=None, partition='validation')
+
+scores_df = pd.concat([scores_df_t, scores_df_v])
+
+data = scores_df[kir_atts_to_plot].copy().corr(method='pearson')
+sns.heatmap(data, annot = True)
+plt.title('Correlation Heat Map')
+date_str = data_sci_mgr.data_mgr.get_date_str()
+
+plt.show()
+
+filename = 'Analysis/General/kir_attributes_heatmap_{}.png'.format(date_str, date_str)
+plt.savefig(filename)"""
+
+"""params_filename = 'Data/grid_search_parmas_13052023.csv'
+
+params_df = pd.read_csv(params_filename, index_col=0)
+h_param_labels = ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']
+for h_param_label in h_param_labels:
+    print(params_df.iloc[0][h_param_label])"""
+
+"""filename_template = "/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{}/rf_parallel_gs_results_{}_{}_15052023.csv"
+
+start_index  = 0
+final_index  = 133
+test_index = 9
+step = 1000
+
+frames = []
+for i in range(start_index, final_index + 1, 1):
+    filename = filename_template.format(test_index, i*step, step)
+    frame = pd.read_csv(filename, index_col=0)
+    frames.append(frame)
+
+grid_search_results = pd.concat(frames)
+
+output_filename = "Analysis/RandomForest/May/15052023_{0}/grid_search_results_{0}_{1}.csv".format(test_index, data_sci_mgr.data_mgr.get_date_str())
+grid_search_results.to_csv(output_filename)"""
+
+"""
+filename = "Analysis/RandomForest/May/15052023_9/grid_search_data_20052023_2r_9.csv"
+frame = pd.read_csv(filename, index_col=0)
+
+
+for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']:
+    sns.scatterplot(data=frame, x=key, y='neg_mae')
+    filename = "Analysis/RandomForest/May/15052023_9/gs_scatter_{}_{}".format(key, data_sci_mgr.data_mgr.get_date_str())
+    plt.savefig(filename)
+    plt.clf()"""
+
+"""filename = "Analysis/RandomForest/May/15052023_9/grid_search_data_20052023_2r_9.csv"
+frame = pd.read_csv(filename, index_col=0)
+
+bootstrap = True
+max_depth = 21
+max_features = .4
+max_samples = .9
+min_samples_split = 8
+n_estimators = 80
+
+frame = frame[frame['max_depth'] == max_depth]
+frame = frame[frame['max_features'] == max_features]
+frame = frame[frame['max_samples'] == max_samples]
+frame = frame[frame['min_samples_split'] == min_samples_split]
+frame = frame[frame['n_estimators'] == n_estimators]
+print(frame)
+print(frame.loc[168058])"""
+
+"""filename = "Analysis/RandomForest/May/15052023_9/grid_search_data_20052023_2r_9.csv"
+frame = pd.read_csv(filename, index_col=0)
+best_params = frame.loc[90418]
+
+for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']:
+    sns.scatterplot(data=frame, x=key, y='neg_mae')
+    filename = "Analysis/RandomForest/May/15052023_9/gs_scatter_{}_{}_no_x".format(key, data_sci_mgr.data_mgr.get_date_str())
+    #plt.plot(best_params[key], best_params['neg_mae'], marker='x', color='k', ms=10, markeredgewidth=3)
+    #plt.show()
+    plt.savefig(filename)
+    plt.clf()"""
+
+
+"""filename = "Analysis/RandomForest/May/15052023_9/grid_search_data_20052023_2r_9.csv"
+frame = pd.read_csv(filename, index_col=0)
+
+print(frame.loc[90418])"""
+
+"""filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel11/rf_parallel_gs_results_{}_1000_23052023.csv'
+
+
+for i in range(0, 134, 1):
+    try:
+        filename = filename_template.format(i*1000)
+        scores = pd.read_csv(filename)
+    except:
+        print(filename)
+    """
+
+"""filename_template = "/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{}/rf_parallel_gs_results_{}_{}_23052023.csv"
+
+start_index  = 0
+final_index  = 134
+test_index = 11
+step = 1000
+
+frames = []
+for i in range(start_index, final_index + 1, 1):
+    filename = filename_template.format(test_index, i*step, step)
+    frame = pd.read_csv(filename, index_col=0)
+    frames.append(frame)
+
+grid_search_results = pd.concat(frames)
+
+output_filename = "Analysis/RandomForest/May/15052023_{0}/grid_search_results_{0}_{1}.csv".format(test_index, data_sci_mgr.data_mgr.get_date_str())
+grid_search_results.to_csv(output_filename)
+print('Complete.')"""
+
+"""test_id = 11
+
+filename = "Analysis/RandomForest/May/15052023_{0}/grid_search_results_{0}_25052023.csv".format(test_id)
+frame = pd.read_csv(filename, index_col=0)
+#best_params = frame.loc[90418]
+
+for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']:
+    sns.scatterplot(data=frame, x=key, y='mean_neg_mae')
+    filename = "Analysis/RandomForest/May/15052023_{}/gs_scatter_{}_{}_no_x".format(test_id, key, data_sci_mgr.data_mgr.get_date_str())
+    #plt.plot(best_params[key], best_params['neg_mae'], marker='x', color='k', ms=10, markeredgewidth=3)
+    #plt.show()
+    plt.savefig(filename)
+    plt.clf()"""
+
+
+print('Starting ...')
+test_id = 3
+alt_filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_28052023.csv'
+filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_26052023.csv'
+
+
+"""for i in range(0, 341+1, 1):
+    try:
+        alt_filename = alt_filename_template.format(test_id, i*1000)
+        filename = filename_template.format(test_id, i*1000)
+        if os.path.isfile(alt_filename):
+            os.rename(alt_filename, filename)
+
+        if not os.path.isfile(filename):
+            print(filename)
+        
+    except:
+        print(filename)
+
+print('Complete.')"""
+
+"""print('Starting...')
+
+filename_template = "/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_{2}_26052023.csv"
+
+start_index  = 0
+final_index  = 341
+test_index = 11
+step = 1000
+
+frames = []
+for i in range(start_index, final_index + 1, 1):
+    filename = filename_template.format(test_index, i*step, step)
+    frame = pd.read_csv(filename, index_col=0)
+    frames.append(frame)
+
+grid_search_results = pd.concat(frames)
+
+output_filename = 'Analysis/RandomForest/May/26052023/rf_gs_results_{}_26052023.csv'.format(test_index)
+
+grid_search_results.to_csv(output_filename)
+
+print('Complete.')"""
+
+"""print('Starting...')
+test_indeces = [2, 4, 5, 6, 7, 8, 9, 10, 11]
+filename_format = "Analysis/RandomForest/May/26052023/Test{0}/rf_2r_gs_results_{0}_26052023.csv"
+for test_id in test_indeces:
+    filename = filename_format.format(test_id)
+    frame = pd.read_csv(filename, index_col=0)
+
+    for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']:
+        sns.scatterplot(data=frame, x=key, y='mean_neg_mae')
+        filename = "Analysis/RandomForest/May/26052023/Test{0}/gs_scatter_{0}_{1}_{2}".format(test_id, key, data_sci_mgr.data_mgr.get_date_str())
+        plt.savefig(filename)
+        plt.clf()
+
+print('Complete.')"""
+
+print('Complete.')

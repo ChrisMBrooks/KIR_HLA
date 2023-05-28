@@ -1,0 +1,20 @@
+,label,forward_selected,backward_selected
+0,P4:5530,True,True
+1,P6:76,True,True
+2,P4:5539,False,False
+3,P5 CD8:109,False,False
+4,MFI:79,False,True
+5,P7 Mono:4196,True,False
+6,P4:3645,True,True
+7,P7 Mono:3386,True,True
+8,P7:23,False,False
+9,MFI:658,False,False
+10,MFI:472,False,False
+11,MFI:103,False,True
+12,P7 Mono:566,True,True
+13,MFI:59,False,False
+14,MFI:516,True,True
+15,P1:9993,True,True
+16,MFI:224,False,False
+17,MFI:76,False,True
+18,MFI:8,True,False

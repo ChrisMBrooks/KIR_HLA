@@ -1,0 +1,23 @@
+,0
+data_source,Data/Subsets/clustered_0.95_and_restricted_to_phenos_with_less_thn_10_zeros_05042023.csv
+dependent_var,kir_count
+impute,True
+strategy,mean
+standardise,True
+normalise,True
+n_splits,5
+n_repeats,4
+random_state_1,42
+random_state_2,21
+alpha_range,[0.005 0.01  0.015 0.02  0.025 0.03  0.035 0.04 ]
+l1_ratio_range,[0.05 0.1  0.15 0.2  0.25 0.3  0.35 0.4  0.45 0.5  0.55 0.6 ]
+best_l1_ratio,0.6000000000000001
+best_alpha,0.01
+best_fit_mae,-0.15914627675965962
+avg_neg_mae,-0.16018478001229516
+avg_non_zero_coeff_count,23
+l1_ratio,0.6000000000000001
+alpha,0.01
+candidates,"['P7:23', 'P7 Mono:566', 'P7 Mono:4455', 'P7 Mono:4196', 'P7 Mono:3386', 'P6:76', 'P5 CD8:136', 'P5 CD8:109', 'P4:6227', 'P4:5539', 'P4:5530', 'P4:3645', 'P2:23259', 'P1:9993', 'MFI:8', 'MFI:79', 'MFI:76', 'MFI:658', 'MFI:59', 'MFI:516', 'MFI:472', 'MFI:224', 'MFI:103']"
+run_time,261.9507429599762
+run_id,ba911925e40548769dbefeef1f425f66

@@ -36,10 +36,11 @@ def get_partitioned_data(
 def preprocess_for_validation(
         phenos_t:pd.DataFrame, scores_t:pd.DataFrame, 
         phenos_v:pd.DataFrame, scores_v:pd.DataFrame,
-        impute, strategy, standardise, normalise
+        impute, strategy, standardise, normalise,
+        dependent_var
     ):
-    phenos_t, scores_t = data_sci_mgr.data_mgr.reshape(phenos_t, scores_t)
-    phenos_v, scores_v = data_sci_mgr.data_mgr.reshape(phenos_v, scores_v)
+    phenos_t, scores_t = data_sci_mgr.data_mgr.reshape(phenos_t, scores_t, dependent_var)
+    phenos_v, scores_v = data_sci_mgr.data_mgr.reshape(phenos_v, scores_v, dependent_var)
 
     phenos_t, scores_t, phenos_v, scores_v = data_sci_mgr.data_mgr.preprocess_data_v(
         X_t=phenos_t, Y_t=scores_t, X_v=phenos_v, Y_v=scores_v,
@@ -53,7 +54,8 @@ def preprocess_for_validation(
 
 def get_final_score(phenos_subset, partition_training_dataset:bool, h_params:dict, 
         validation_approach:str, n_splits:int, n_repeats:int, random_state:int,
-        impute:bool, strategy:str, standardise:bool, normalise:bool
+        impute:bool, strategy:str, standardise:bool, normalise:bool,
+        dependent_var:str
     ):
     
     results = []
@@ -68,6 +70,7 @@ def get_final_score(phenos_subset, partition_training_dataset:bool, h_params:dic
         phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
             phenos_t, scores_t, phenos_v, scores_v, 
             impute, strategy, standardise, normalise,
+            dependent_var
         )
 
         if validation_approach == 'tt':
@@ -110,7 +113,8 @@ def get_final_score(phenos_subset, partition_training_dataset:bool, h_params:dic
 
 def get_baseline(phenos_subset, partition_training_dataset:bool, 
         h_params, random_state, n_jobs, 
-        impute, strategy, standardise, normalise
+        impute, strategy, standardise, normalise,
+        dependent_var
     ):
 
     phenos_t, scores_t, phenos_v, scores_v = get_partitioned_data(
@@ -119,7 +123,8 @@ def get_baseline(phenos_subset, partition_training_dataset:bool,
 
     phenos_t, scores_t, phenos_v, scores_v = preprocess_for_validation(
         phenos_t, scores_t, phenos_v, scores_v, 
-        impute, strategy, standardise, normalise
+        impute, strategy, standardise, normalise,
+        dependent_var
     )
 
     model = RandomForestRegressor(
@@ -138,8 +143,9 @@ def get_baseline(phenos_subset, partition_training_dataset:bool,
 
     for i in range(n_repeats):
         model.fit(phenos_t, scores_t)
-        y_hat = model.predict(phenos_v)
-        np.random.shuffle(y_hat)
+        shuffled = np.copy(phenos_v)
+        np.random.shuffle(shuffled)
+        y_hat = model.predict(shuffled)
         neg_mae = -1*mean_absolute_error(scores_v, y_hat)
         predictions.append(neg_mae)
 
@@ -155,30 +161,38 @@ data_sci_mgr = dsm.DataScienceManager(
     use_database=use_database)
 
 # Declare Config Params 
+dependent_var = 'f_kir_score'
+
 n_jobs = 16 - 1
 n_splits = 4
 n_repeats = 5
-random_state = 42
+random_state = 336
 
 partition_training_dataset = True
 fs_bs_filter = 2
 
 impute = True
 strategy = 'mean'
-standardise = False
+standardise = True
 normalise = True
 
 h_params = dict()
-h_params['max_depth'] = 6
-h_params['n_estimators'] = 300
-h_params['max_features'] = 0.3
-h_params['max_samples'] = 0.9
+h_params['max_depth'] = 11
+h_params['n_estimators'] = 60
+h_params['max_features'] = 0.4
+h_params['max_samples'] = 0.5
 h_params['bootstrap'] = True
-h_params['min_samples_split'] = 40
+h_params['min_samples_split'] = 10
 
-source_filename = 'Analysis/RandomForest/20042023_c0.95_100/r_forest_fs_bs_candidate_features_100_20042023_2.csv'
+"""source_filename = 'Analysis/RandomForest/May/15052023_9/rf_fs_bs_candidate_features_100_16052023_9.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
-output_filename = 'Analysis/RandomForest/rf_final_score_{}.csv'.format(date_str)
+output_filename = 'Analysis/RandomForest/rf_final_score_{}.csv'.format(date_str)"""
+
+test_id = 7
+cut_off = 250
+source_filename = 'Analysis/RandomForest/May/24052023/25052023_{0}/rf_fs_bs_candidate_features_{1}_25052023_{0}.csv'.format(test_id, cut_off)
+date_str = data_sci_mgr.data_mgr.get_date_str()
+output_filename = 'Analysis/RandomForest/rf_final_score_{}_{}_{}.csv'.format(test_id, cut_off, date_str)
 
 # Pull Data from DB
 phenos_subset = pd.read_csv(source_filename, index_col=0)
@@ -191,7 +205,7 @@ output = {}
 
 output['baseline'] = get_baseline(
     phenos_subset, partition_training_dataset, h_params, random_state, n_jobs, 
-    impute, strategy, standardise, normalise
+    impute, strategy, standardise, normalise, dependent_var
 )
 
 for idx, approach in enumerate(validation_approaches):
@@ -206,7 +220,8 @@ for idx, approach in enumerate(validation_approaches):
         impute = impute, 
         strategy = strategy, 
         standardise = standardise, 
-        normalise = normalise
+        normalise = normalise,
+        dependent_var = dependent_var
     )
     key = 'avg_neg_mae' + '_' + validation_approaches[idx]
     output[key] = neg_mae
@@ -215,6 +230,19 @@ for idx, approach in enumerate(validation_approaches):
 output['data_source'] = source_filename
 output['partition_training_dataset'] = partition_training_dataset
 output['fs_bs_filter'] = fs_bs_filter
+
+output['n_splits'] = n_splits
+output['n_repeats'] = n_repeats
+output['random_state'] = random_state
+
+output['impute'] = impute
+output['standardise'] = standardise
+output['normalise'] = normalise
+output['strategy'] = strategy
+
+for key in h_params:
+    output[key] = h_params[key]
+
 output['features'] = phenos_subset
 output = pd.Series(output)
 print(output)

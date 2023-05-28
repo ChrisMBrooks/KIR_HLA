@@ -1,0 +1,9 @@
+,0
+baseline,-0.24719223439194832
+avg_neg_mae_tt,-0.18126336750178196
+avg_neg_mae_vv,-0.19489143629414485
+avg_neg_mae_tv,-0.2131741328062769
+data_source,Analysis/RandomForest/02052023_0.95_10/rf_fs_bs_candidate_features_10_02052023_7.csv
+partition_training_dataset,True
+fs_bs_filter,1
+features,"['P7 Mono:4045', 'P1:22913', 'MFI:469', 'P1:22213', 'P2:19837', 'P4:3799', 'P2:8332']"
