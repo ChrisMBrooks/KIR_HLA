@@ -19,14 +19,17 @@ schema_name = datasources[0]["schema_name"]
 df_hla_geno_tbl = sql.read_table_into_data_frame(schema_name=schema_name, 
     table_name=table_names[0]
 )
+print('df_hla_geno_tbl', df_hla_geno_tbl.shape)
 
 df_kir_geno_tbl = sql.read_table_into_data_frame(schema_name=schema_name,
     table_name=table_names[1]
 )
+print('df_kir_geno_tbl', df_kir_geno_tbl.shape)
 
 df_mapping_tbl = sql.read_table_into_data_frame(schema_name=schema_name, 
     table_name=table_names[2]
 )
+print('df_mapping_tbl', df_mapping_tbl.shape)
 
 filename = '/Users/chrismbrooks/Documents/Imperial/Asquith Group/Raw Data/Twins UK/E1139_14092021/E1139_140921.xlsx'
 cofactor_codes_df = pd.read_excel(filename, sheet_name='Coding', header=0)
@@ -43,12 +46,13 @@ required_columns = ['public_id', 'flow_jo_subject_id', 'kir2dl1_t50', 'kir2dl2_t
     'a_1', 'a_2', 'b_1', 'b_2', 'c_1', 'c_2']
 
 mster_df = mster_df[required_columns].copy()
-
+print('everyone, ', mster_df.shape)
 complete_record_status = [1 if row.isna().sum() <= 0 else 0 for index, row in mster_df.iterrows()] 
 
 mster_df['complete_record'] = complete_record_status
 mster_df = mster_df[mster_df['complete_record'] > 0].copy() 
 mster_df['subject_id'] = mster_df['flow_jo_subject_id'] 
+print('complete records cohort: ', mster_df.shape)
 
 #Filter Out Steroid Users.
 
@@ -60,6 +64,7 @@ code = float(cofactor_codes_df['ResponseCode'].values[0])
 cofactors_df = cofactors_df.drop_duplicates(subset=['PublicID'], keep='first')
 mster_df = mster_df.merge(cofactors_df, how='left', left_on='public_id', right_on='PublicID')
 mster_df = mster_df[mster_df['P003135'] != code].copy() 
+print('final cohort:', mster_df.shape)
 
 # Train-Validation Data Split
 dataset_indeces = sorted(set(np.arange(0, mster_df['public_id'].shape[0], 1)))

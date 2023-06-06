@@ -177,22 +177,22 @@ standardise = True
 normalise = True
 
 h_params = dict()
-h_params['max_depth'] = 11
-h_params['n_estimators'] = 60
-h_params['max_features'] = 0.4
-h_params['max_samples'] = 0.5
+h_params['max_depth'] = 6
+h_params['n_estimators'] = 100
+h_params['max_features'] = 0.3
+h_params['max_samples'] = 0.9
 h_params['bootstrap'] = True
-h_params['min_samples_split'] = 10
+h_params['min_samples_split'] = 40
 
 """source_filename = 'Analysis/RandomForest/May/15052023_9/rf_fs_bs_candidate_features_100_16052023_9.csv'
 date_str = data_sci_mgr.data_mgr.get_date_str()
 output_filename = 'Analysis/RandomForest/rf_final_score_{}.csv'.format(date_str)"""
 
 test_id = 7
-cut_off = 250
-source_filename = 'Analysis/RandomForest/May/24052023/25052023_{0}/rf_fs_bs_candidate_features_{1}_25052023_{0}.csv'.format(test_id, cut_off)
+cut_off = 275
+source_filename = 'Analysis/RandomForest/May/24052023/24052023_{0}/rf_fs_bs_candidate_features_{1}_28052023_{0}.csv'.format(test_id, cut_off)
 date_str = data_sci_mgr.data_mgr.get_date_str()
-output_filename = 'Analysis/RandomForest/rf_final_score_{}_{}_{}.csv'.format(test_id, cut_off, date_str)
+output_filename = 'Analysis/RandomForest/May/24052023/24052023_{0}/rf_final_score_{0}_{1}_{2}.csv'.format(test_id, cut_off, date_str)
 
 # Pull Data from DB
 phenos_subset = pd.read_csv(source_filename, index_col=0)

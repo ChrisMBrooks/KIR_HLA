@@ -1,6 +1,6 @@
 
 import os
-import math, random
+import math, random, itertools
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -741,16 +741,20 @@ for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstr
     plt.clf()"""
 
 
-print('Starting ...')
+"""print('Starting ...')
 test_id = 3
 alt_filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_28052023.csv'
 filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_26052023.csv'
 
 
-"""for i in range(0, 341+1, 1):
+for i in range(0, 341+1, 1):
     try:
         alt_filename = alt_filename_template.format(test_id, i*1000)
         filename = filename_template.format(test_id, i*1000)
+
+        if os.path.isfile(filename) and os.path.isfile(alt_filename):
+            os.remove(filename)
+
         if os.path.isfile(alt_filename):
             os.rename(alt_filename, filename)
 
@@ -768,7 +772,7 @@ filename_template = "/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Par
 
 start_index  = 0
 final_index  = 341
-test_index = 11
+test_index = 3
 step = 1000
 
 frames = []
@@ -784,20 +788,373 @@ output_filename = 'Analysis/RandomForest/May/26052023/rf_gs_results_{}_26052023.
 grid_search_results.to_csv(output_filename)
 
 print('Complete.')"""
-
-"""print('Starting...')
-test_indeces = [2, 4, 5, 6, 7, 8, 9, 10, 11]
+"""
+print('Starting...')
+test_indeces = [2]
 filename_format = "Analysis/RandomForest/May/26052023/Test{0}/rf_2r_gs_results_{0}_26052023.csv"
 for test_id in test_indeces:
     filename = filename_format.format(test_id)
     frame = pd.read_csv(filename, index_col=0)
+    frame = frame[frame['max_depth'] == 6].copy()
+    frame = frame[frame['min_samples_split'] == 17].copy()
+    frame = frame[frame['n_estimators'] >= 60].copy()
+    frame = frame[frame['max_features'] == 0.4].copy()
+    frame = frame[frame['max_samples'] == 0.5].copy()
+    
+ 
 
     for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']:
         sns.scatterplot(data=frame, x=key, y='mean_neg_mae')
         filename = "Analysis/RandomForest/May/26052023/Test{0}/gs_scatter_{0}_{1}_{2}".format(test_id, key, data_sci_mgr.data_mgr.get_date_str())
-        plt.savefig(filename)
+        plt.show()
+        #plt.savefig(filename)
         plt.clf()
 
 print('Complete.')"""
+
+"""print('Starting ...')
+test_id = 1
+alt_filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_30052023.csv'
+filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_31052023.csv'
+
+
+for i in range(0, 341+1, 1):
+    try:
+        alt_filename = alt_filename_template.format(test_id, i*1000)
+        filename = filename_template.format(test_id, i*1000)
+
+        # if os.path.isfile(filename) and os.path.isfile(alt_filename):
+        #     os.remove(filename)
+
+        if os.path.isfile(alt_filename):
+            os.rename(alt_filename, filename)
+
+        if not os.path.isfile(filename):
+            print(filename)
+        
+    except:
+        print(filename)
+
+print('Complete.')"""
+
+"""filename1 = 'Analysis/RandomForest/May/15052023_7/grid_search_results_7_16052023.csv'
+filename2 = 'Analysis/RandomForest/May/26052023/Test7/rf_2r_gs_results_7_26052023.csv'
+
+gs_results_df1 = pd.read_csv(filename1, index_col=0)
+gs_results_df1 = gs_results_df1[gs_results_df1['bootstrap'] == True]
+
+gs_results_df2 = pd.read_csv(filename2, index_col=0)
+
+results = [gs_results_df1, gs_results_df2]
+
+gs_results_df = pd.concat(results)
+
+print(gs_results_df)
+print(gs_results_df.shape, gs_results_df1.shape, gs_results_df2.shape)
+
+test_id = 7
+
+frame = gs_results_df
+#best_params = frame.loc[90418]
+frame = frame[frame['max_depth'] == 6]
+
+for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'bootstrap', 'min_samples_split']:
+    sns.scatterplot(data=frame, x=key, y='mean_neg_mae')
+    filename = "Analysis/RandomForest/May/26052023/Test{0}/gs_scatter_concat_{0}_{1}.png".format(test_id, key, data_sci_mgr.data_mgr.get_date_str())
+    #plt.plot(best_params[key], best_params['neg_mae'], marker='x', color='k', ms=10, markeredgewidth=3)
+    plt.show()
+    #plt.savefig(filename)
+    plt.clf()
+"""
+"""print('Starting...')
+test_id = 11
+alt_filename_template = '/Volumes/cmb22/home/random_forest_no_cv/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_no_cv_{1}_1000_02062023.csv'
+filename_template = '/Volumes/cmb22/home/random_forest_no_cv/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_no_cv_{1}_1000_31052023.csv'
+
+
+for i in range(0, 341+1, 1):
+    try:
+        alt_filename = alt_filename_template.format(test_id, i*1000)
+        filename = filename_template.format(test_id, i*1000)
+
+        # if os.path.isfile(filename) and os.path.isfile(alt_filename):
+        #     os.remove(filename)
+
+        if os.path.isfile(alt_filename):
+            os.rename(alt_filename, filename)
+
+        if not os.path.isfile(filename):
+            print(filename)
+        
+    except:
+        print(filename)
+
+print('Complete.')"""
+
+"""filename1 = 'Analysis/RandomForest/May/15052023_7/grid_search_results_7_16052023.csv'
+filename2 = 'Analysis/RandomForest/May/26052023/Test7/rf_2r_gs_results_7_26052023.csv'
+
+gs_results_df1 = pd.read_csv(filename1, index_col=0)
+gs_results_df1 = gs_results_df1[gs_results_df1['bootstrap'] == True]
+
+gs_results_df2 = pd.read_csv(filename2, index_col=0)
+
+results = [gs_results_df1, gs_results_df2]
+
+gs_results_df = pd.concat(results)
+
+print(gs_results_df)
+print(gs_results_df.shape, gs_results_df1.shape, gs_results_df2.shape)
+
+test_id = 7
+
+frame = gs_results_df
+#best_params = frame.loc[90418]
+#frame = frame[frame['max_depth'] == 6]
+
+for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'min_samples_split']:
+    sns.lineplot(data=frame, x=key, y='mean_neg_mae', estimator='mean', errorbar=('ci', 95))
+    filename = "Analysis/RandomForest/May/26052023/Test{0}/gs_scatter_concat_{0}_{1}.png".format(test_id, key, data_sci_mgr.data_mgr.get_date_str())
+    #plt.plot(best_params[key], best_params['neg_mae'], marker='x', color='k', ms=10, markeredgewidth=3)
+    plt.show()
+    #plt.savefig(filename)
+    plt.clf()
+"""
+
+"""print('Starting...')
+
+filename_template = "/Volumes/cmb22/home/random_forest_no_cv/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_no_cv_{1}_{2}_31052023.csv"
+
+start_index  = 0
+final_index  = 341
+test_index = 11
+step = 1000
+
+frames = []
+for i in range(start_index, final_index + 1, 1):
+    filename = filename_template.format(test_index, i*step, step)
+    frame = pd.read_csv(filename, index_col=0)
+    frames.append(frame)
+
+grid_search_results = pd.concat(frames)
+
+output_filename = '/Users/chrismbrooks/Documents/Imperial/Asquith Group/KIR_HLA/Analysis/RandomForest/May/26052023/Test{0}/rf_2r_gs_results_no_cv_{0}_31052023.csv'.format(test_index)
+
+grid_search_results.to_csv(output_filename)
+
+print('Complete.')
+"""
+"""filename1 = 'Analysis/RandomForest/May/26052023/Test2/rf_2r_gs_results_2_26052023.csv'
+filename2 = 'Analysis/RandomForest/May/26052023/Test2/rf_2r_gs_results_no_cv_2_31052023.csv'
+
+gs_results_w_cv = pd.read_csv(filename1, index_col=0)
+gs_results_wo_cv = pd.read_csv(filename2, index_col=0)
+
+#best_params = frame.loc[90418]
+gs_results_w_cv = gs_results_w_cv[gs_results_w_cv['max_depth'] == 6]
+gs_results_wo_cv = gs_results_wo_cv[gs_results_wo_cv['max_depth'] == 6]
+
+palette = itertools.cycle(sns.color_palette())
+c1 = next(palette)
+c2 = next(palette)
+
+for key in ['max_depth', 'n_estimators', 'max_features', 'max_samples', 'min_samples_split']:
+    
+    #fig = plt.figure()
+    #ax1 = fig.add_subplot(2, 1, 1)
+    #ax2 = fig.add_subplot(2, 1, 2, sharex=ax1)
+    #sns.scatterplot(data=gs_results_w_cv, x=key, y='mean_neg_mae', ax=ax1, color=c1)
+    #sns.scatterplot(data=gs_results_wo_cv, x=key, y='mean_neg_mae', ax=ax2, color=c2)
+
+    sns.lineplot(data=gs_results_w_cv, x=key, y='mean_neg_mae', color=c1, estimator='mean', errorbar='sd')
+    sns.lineplot(data=gs_results_wo_cv, x=key, y='mean_neg_mae', color=c2, estimator='mean', errorbar='sd')
+
+    #plt.plot(best_params[key], best_params['neg_mae'], marker='x', color='k', ms=10, markeredgewidth=3)
+    plt.show()
+    #plt.savefig(filename)
+    plt.clf()
+"""
+"""
+source_filename = '/Users/chrismbrooks/Downloads/imputation_results/imputations.csv'
+output_filename = '/Users/chrismbrooks/Downloads/imputation_results/imputations_df.csv'
+
+
+kir_imputations_df = pd.read_csv(source_filename)
+columns = ['id_1', 'id_2', 'haplotype_id', 'locus', 'imputed_type', 'posterior_probability']
+
+kir_imputations_df = pd.DataFrame(kir_imputations_df.values, columns=columns)
+
+kir_imputation_records = {}
+
+#loci = ['KIRhaplotype', 'AvsB', 'KIR2DS2', 'KIR2DL2', 'KIR2DL3', 'KIR2DP1', 'KIR2DL1',
+# 'KIR3DP1', 'KIR2DL4', 'KIR3DL1ex4', 'KIR3DL1ex9', 'KIR3DS1', 'KIR2DL5',
+# 'KIR2DS3', 'KIR2DS5', 'KIR2DS1', 'KIR2DS4TOTAL', 'KIR2DS4WT', 'KIR2DS4DEL']
+
+loci = ['KIR2DS2', 'KIR2DL2', 'KIR2DL3', 'KIR2DP1', 'KIR2DL1',
+ 'KIR3DP1', 'KIR2DL4', 'KIR3DL1ex4', 'KIR3DL1ex9', 'KIR3DS1', 'KIR2DL5',
+ 'KIR2DS3', 'KIR2DS5', 'KIR2DS1', 'KIR2DS4TOTAL', 'KIR2DS4WT', 'KIR2DS4DEL']
+
+thresholds = {'t50':0.50, 't70':0.70, 't80':0.80}
+for subject_id in np.unique(kir_imputations_df['id_2'].values):
+    kir_imputation_records[subject_id] = {'ID':subject_id}
+    relevant_rows = kir_imputations_df[kir_imputations_df['id_2']== subject_id] 
+
+    for locus in loci:
+        haplotypes = relevant_rows[relevant_rows['locus']==locus]
+        hap1 = haplotypes.iloc[0]
+        hap2 = haplotypes.iloc[1]
+
+        partial_record = {}
+        for th_key in thresholds:
+            key = '{}_{}'.format(locus, th_key)
+            kir_imputation_records[subject_id][key] = np.nan
+            if (hap1['posterior_probability'] > thresholds[th_key] and int(hap1['imputed_type']) == 1) or \
+                (hap2['posterior_probability'] > thresholds[th_key] and int(hap2['imputed_type']) == 1):
+                kir_imputation_records[subject_id][key] = 1
+            elif (hap1['posterior_probability'] > thresholds[th_key] and int(hap1['imputed_type']) == 0) and \
+                (hap2['posterior_probability'] > thresholds[th_key] and int(hap2['imputed_type']) == 0):
+                kir_imputation_records[subject_id][key] = 1
+
+kir_imputation_records = [kir_imputation_records[key] for key in kir_imputation_records]
+kir_imputations_df = pd.DataFrame(kir_imputation_records)
+
+columns = ["ID", "KIR2DL1_t50", "KIR2DL2_t50", "KIR2DL3_t50", 
+"KIR2DL4_t50", "KIR2DL5_t50", "KIR2DP1_t50", "KIR2DS1_t50", 
+"KIR2DS2_t50", "KIR2DS3_t50", "KIR2DS4DEL_t50", "KIR2DS4TOTAL_t50", 
+"KIR2DS4WT_t50", "KIR2DS5_t50", "KIR3DL1ex4_t50", "KIR3DL1ex9_t50",
+ "KIR3DP1_t50", "KIR3DS1_t50", "KIR2DL1_t70", 
+ "KIR2DL2_t70", "KIR2DL3_t70", "KIR2DL4_t70", "KIR2DL5_t70", 
+ "KIR2DP1_t70", "KIR2DS1_t70", "KIR2DS2_t70", "KIR2DS3_t70", 
+ "KIR2DS4DEL_t70", "KIR2DS4TOTAL_t70", "KIR2DS4WT_t70", 
+ "KIR2DS5_t70", "KIR3DL1ex4_t70", "KIR3DL1ex9_t70", "KIR3DP1_t70", 
+ "KIR3DS1_t70", "KIR2DL1_t80", "KIR2DL2_t80", "KIR2DL3_t80", 
+ "KIR2DL4_t80", "KIR2DL5_t80", "KIR2DP1_t80", "KIR2DS1_t80", 
+ "KIR2DS2_t80", "KIR2DS3_t80", "KIR2DS4DEL_t80", "KIR2DS4TOTAL_t80", 
+ "KIR2DS4WT_t80", "KIR2DS5_t80", "KIR3DL1ex4_t80", "KIR3DL1ex9_t80", 
+ "KIR3DP1_t80", "KIR3DS1_t80"]
+
+kir_imputations_df = kir_imputations_df[columns].copy()
+
+kir_imputations_df.to_csv(output_filename)
+
+kir_imputations_df = pd.read_csv(output_filename, index_col=0)
+print(kir_imputations_df)"""
+
+"""columns = ["ID", "KIR2DL1_t50", "KIR2DL2_t50", "KIR2DL3_t50", "KIR3DL1ex4_t50", "KIR3DL1ex9_t50"]
+
+source_filename = '/Users/chrismbrooks/Downloads/imputation_results/imputations_df.csv'
+
+kir_imputations_df = pd.read_csv(source_filename, index_col=0)
+
+kir_imputations_df = kir_imputations_df[columns].copy()
+columns_c = [x +'_c' for x in columns]
+kir_imputations_df_c = pd.DataFrame(kir_imputations_df.values, columns=columns_c)
+print(kir_imputations_df)
+
+
+source_filename_l = '/Users/chrismbrooks/Documents/Imperial/Asquith Group/Raw Data/Twins UK/output laura/TwinsUK_KIR_genotypes.csv'
+kir_imputations_df_l = pd.read_csv(source_filename_l, index_col=None)
+
+kir_imputations_df_l = kir_imputations_df_l[columns].copy()
+columns_l = [x +'_l' for x in columns]
+kir_imputations_df_l = pd.DataFrame(kir_imputations_df_l.values, columns=columns_l)
+
+kir_imputations_df_c = kir_imputations_df_c.merge(kir_imputations_df_l, left_on='ID_c', right_on='ID_l', how='inner')
+
+columns = sorted(list(kir_imputations_df_c.columns))
+
+kir_imputations_df_c = kir_imputations_df_c[columns].copy()
+
+output_filename = '/Users/chrismbrooks/Downloads/imputation_results/imputation_differences.csv'
+kir_imputations_df_c.to_csv(output_filename, index=None,  na_rep='NA')
+
+print(kir_imputations_df_c)"""
+
+"""SNPs_filename = '/Users/chrismbrooks/Downloads/imputation_results/alleles_snp.csv'
+SNPs_filename_l = '/Users/chrismbrooks/Downloads/imputation_results_l/alleles_snp.csv'
+
+SNPs_df = pd.read_csv(SNPs_filename, index_col=None)
+columns = ['id', 'position', 'allele0', 'allele1']
+
+SNPs_df['key_c'] = SNPs_df['position'].astype('str') +  SNPs_df['allele0'].astype('str') + SNPs_df['allele1'].astype('str')
+SNPs_df['source'] = 'c'
+
+SNPs_df_l = pd.read_csv(SNPs_filename_l, index_col=None)
+SNPs_df_l['key_l'] = SNPs_df_l['position'].astype('str') + SNPs_df_l['allele0'].astype('str') + SNPs_df_l['allele1'].astype('str')
+SNPs_df_l['source'] = 'l'
+
+SNPs_df = SNPs_df.merge(SNPs_df_l, left_on='key_c', right_on='key_l', how='outer')
+
+SNPs_df.loc[~SNPs_df['source_x'].isna() & ~SNPs_df['source_y'].isna(), 'source'] = 'both'
+
+SNPs_df['source'] = SNPs_df['source'].combine_first(SNPs_df['source_x'])
+
+SNPs_df['source'] = SNPs_df['source'].combine_first(SNPs_df['source_y'])
+
+for key in columns:
+    key_x = '{}_{}'.format(key, 'x')
+    key_y = '{}_{}'.format(key, 'y')
+
+    SNPs_df[key] = SNPs_df[key_x].combine_first(SNPs_df[key_y])
+
+columns = ['source'] +list(columns)
+
+SNPs_df = SNPs_df[columns].copy()
+
+SNPs_df['position'] = SNPs_df['position'].astype('int')
+
+output_filename = '/Users/chrismbrooks/Downloads/imputation_results/alleles_snp_differences.csv'
+
+SNPs_df.to_csv(output_filename)"""
+
+"""print('Starting...')
+
+filename_template = "/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_{2}_31052023.csv"
+
+start_index  = 341
+final_index  = 454
+test_index = 1
+step = 1000
+
+frames = []
+for i in range(start_index, final_index + 1, 1):
+    filename = filename_template.format(test_index, i*step, step)
+    frame = pd.read_csv(filename, index_col=0)
+    frames.append(frame)
+
+grid_search_results = pd.concat(frames)
+
+output_filename = 'Analysis/RandomForest/May/26052023/Test{0}/rf_2r_gs_results_{0}_26052023.csv'.format(test_index)
+
+grid_search_results.to_csv(output_filename)
+
+print('Complete.')
+"""
+
+print('Starting...')
+test_id = 11
+#alt_filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_04062023.csv'
+#filename_template = '/Volumes/cmb22/home/random_forest/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_{1}_1000_04062023.csv'
+
+filename_template = '/Volumes/cmb22/home/random_forest_no_cv/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_no_cv_{1}_1000_05062023.csv' 
+alt_filename_template = '/Volumes/cmb22/home/random_forest_no_cv/Analysis/RandomForest/Parallel{0}/rf_parallel_gs_results_no_cv_{1}_1000_05062023.csv'
+
+
+for i in range(341, 454+1, 1):
+    try:
+        alt_filename = alt_filename_template.format(test_id, i*1000)
+        filename = filename_template.format(test_id, i*1000)
+
+        #if os.path.isfile(filename) and os.path.isfile(alt_filename):
+        #     os.remove(filename)
+
+        #if os.path.isfile(alt_filename):
+        #    os.rename(alt_filename, filename)
+
+        if not os.path.isfile(filename):
+            print(filename)
+        
+    except:
+        print(filename)
 
 print('Complete.')
